@@ -1,4 +1,20 @@
 import CreateCar from "./car.model"
+
+
+export const engineVolumes = [
+    0.5,
+    1,
+    1.5,
+    2,
+    2.5,
+    3,
+    3.5,
+    4,
+    5,
+    6,
+    7,
+    8
+]
 export const vehicleTypes = [
     'lehkovy',
     'moto',
@@ -19,6 +35,13 @@ const vehicleTypesUA = [
     'Причепи',
     'Автобудинки',
 ]
+export function AdaptVehicleType(VT) {
+    let index = vehicleTypes.findIndex((r) => r == VT)
+    if (index == -1)
+        return;
+    else
+        return vehicleTypesUA[index];
+}
 export const regions = [
     'Vinnytsia',
     'Volyn',
@@ -54,12 +77,12 @@ const regionsUA = [
     'Одеська',
     'Полтавська',
 ]
-export function AdaptRegion(region){
+export function AdaptRegion(region) {
     let index = regions.findIndex((r) => r == region)
-    if(index == -1)
-    return;
+    if (index == -1)
+        return;
     else
-    return regionsUA[index];
+        return regionsUA[index];
 }
 export const bodyTypes = [
     'SEDAN',
@@ -160,12 +183,12 @@ const transmissionTypesUA = [
     'Робот',
     'Варіатор',
 ]
-export function AdaptTransmission(transmission){
+export function AdaptTransmission(transmission) {
     let index = transmissionTypes.findIndex((r) => r == transmission)
-    if(index == -1)
-    return;
+    if (index == -1)
+        return;
     else
-    return transmissionTypesUA[index];
+        return transmissionTypesUA[index];
 }
 export const fuelTypes = [
     'patrol',
@@ -187,12 +210,12 @@ const fuelTypesUA = [
     'Газ-метан',
     'Газ пропан-бутан',
 ]
-export function AdaptFuelType(fuel){
+export function AdaptFuelType(fuel) {
     let index = fuelTypes.findIndex((r) => r == fuel)
-    if(index == -1)
-    return;
+    if (index == -1)
+        return;
     else
-    return fuelTypesUA[index];
+        return fuelTypesUA[index];
 }
 export const wheelDriveTypes = [
     'front',
@@ -204,12 +227,12 @@ const wheelDriveTypesUA = [
     'Задній',
     'Повний',
 ]
-export function AdaptWheelDrive(WD){
+export function AdaptWheelDrive(WD) {
     let index = wheelDriveTypes.findIndex((r) => r == WD)
-    if(index == -1)
-    return;
+    if (index == -1)
+        return;
     else
-    return wheelDriveTypesUA[index];
+        return wheelDriveTypesUA[index];
 }
 export const technicalStates = [
     'old',
@@ -219,13 +242,42 @@ const technicalStatesUA = [
     'старі',
     'нові',
 ]
+export const years = [
+    1990,
+    1991,
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+]
+
 export const cars = [
     CreateCar(
         vehicleTypes[0],
         regions[0],
         bodyTypes[0],
         10000,
-        1000000,
+        100000,
         brandTypes[0],
         modelTypes[0],
         2005,
@@ -236,8 +288,79 @@ export const cars = [
         false,
         technicalStates[0],
         '',
-        10
+        10,
+        ['card image.png'],
+        'some description',
+        '098 666 66 66',
+        1
     ),
+    CreateCar(
+        vehicleTypes[1],
+        regions[1],
+        bodyTypes[1],
+        10000,
+        8000,
+        brandTypes[1],
+        modelTypes[1],
+        2005,
+        transmissionTypes[1],
+        fuelTypes[1],
+        wheelDriveTypes[1],
+        true,
+        false,
+        technicalStates[1],
+        '',
+        10,
+        ['volkswagen_golf__418081862f.webp'],
+        'some description',
+        '098 666 66 66',
+        2
+    ),
+    CreateCar(
+        vehicleTypes[1],
+        regions[1],
+        bodyTypes[1],
+        10000,
+        6000,
+        brandTypes[1],
+        modelTypes[1],
+        2005,
+        transmissionTypes[1],
+        fuelTypes[1],
+        wheelDriveTypes[1],
+        true,
+        false,
+        technicalStates[1],
+        '',
+        10,
+        ['volkswagen_golf__418081862f.webp'],
+        'some description',
+        '098 666 66 66',
+        5
+    ),
+    CreateCar(
+        vehicleTypes[1],
+        regions[1],
+        bodyTypes[1],
+        10000,
+        6000,
+        brandTypes[1],
+        modelTypes[1],
+        2005,
+        transmissionTypes[1],
+        fuelTypes[1],
+        wheelDriveTypes[1],
+        true,
+        false,
+        technicalStates[1],
+        '',
+        10,
+        ['volkswagen_golf__418081862f.webp'],
+        'some description',
+        '098 666 66 66',
+        4
+    )
+
 
 ]
 
