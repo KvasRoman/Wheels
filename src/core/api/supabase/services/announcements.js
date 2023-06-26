@@ -44,8 +44,6 @@ class AnnouncementsService {
     created_at
     `)
 
-    const imgs = []
-
     photos.forEach(async (photo) => {
       await supabase.storage.from('announcments').upload(photo.name, photo)
       const imgUrl = supabase.storage.from('announcments').getPublicUrl(photo.name)
