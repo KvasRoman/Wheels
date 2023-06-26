@@ -58,6 +58,7 @@ import {
     seatVentilation as FDBseatVentilation,
 
 } from '../../../models/fakeDB';
+import { carService } from '../../../core/api/supabase/services/cars'
 
 const fuelTypes = FDBFuelTypes.map(ft => {
     return { value: ft, title: AdaptFuelType(ft) }
@@ -180,6 +181,8 @@ const formModel = {
     phoneNumber: undefined,
 }
 export default function SellVehiclePage() {
+    
+    
     const thumbsContainer = {
         display: 'flex',
         flexDirection: 'row',
@@ -251,7 +254,7 @@ export default function SellVehiclePage() {
     let value;
     function setValue(v) {
         formModel.phoneNumber = v;
-        console.log(value);
+        console.log(v);
     }
 
     function onSubmit(e) {
@@ -262,6 +265,7 @@ export default function SellVehiclePage() {
 
     }
     function onFormValueChange(propName, value) {
+        carService.getCars().then(v => {console.log(v)})
         formModel[propName] = value;
         console.log(formModel);
     }

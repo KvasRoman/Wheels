@@ -25,6 +25,7 @@ import {
     engineVolumes as FDBEngineVolumes
 } from '../../../models/fakeDB';
 import { useState } from 'react';
+import Link from 'react-dom'
 
 //
 
@@ -100,7 +101,7 @@ export default function CarList() {
 
 
 
-        return setState(FDBCars.filter((c) => {
+        return setState([...FDBCars].filter((c) => {
             // console.log((_region != '' || _region != null || c.region === _region))
             // console.log((_bodyType != '' || !_bodyType || c.bodyType === _bodyType))
             // console.log((c.drivenDistance > drivenDistRng[0] && c.drivenDistance < drivenDistRng[1]))

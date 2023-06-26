@@ -26,9 +26,17 @@ import sCar4 from './4.png'
 
 import { useState } from 'react';
 import CardSlider from '../mainPage/cardSlider/cardslider.component'
-
-export default function CarCardPage() {
-    
+import { unstable_deprecatedPropType } from '@mui/utils'
+import CreateCar from '../../../models/car.model'
+import { AdaptCity, AdaptFuelType, AdaptRegion, cars } from '../../../models/fakeDB'
+import { currencyService } from '../../../services/currency.service'
+import { Link } from 'react-router-dom'
+export default function CarCardPage(props) {
+    let car = props.car
+    console.log(car);
+    if(car == undefined){
+        car = cars[0]
+    }
     const [isPhoneNumberShown, setState] = useState(false);
     
     function showPhoneNumber(e){
@@ -39,7 +47,7 @@ export default function CarCardPage() {
         <div className="content" id='carCardPage'>
             <div className="row">
                 <div className="leftSide">
-                <div className="navigation"><p><span>Домашня сторінка</span> / <span>Вживані авто</span> / Volkswagen Golf Alltrack 2018 </p></div>
+                <div className="navigation"><p><span><Link to='/'>Домашня сторінка</Link></span> / <span>Вживані авто</span> / Volkswagen Golf Alltrack 2018 </p></div>
                 <div className="button linkButton"><img src={Scale} alt="" />Повернутись до пошуку</div>
                     <div className="images">
                         <div className="main">
@@ -53,10 +61,10 @@ export default function CarCardPage() {
                         </div>
                     </div>
                     <div className="breefInfo">
-                        <div className="stat"><img src={Speedometer} alt="" />213 тис. км</div>
-                        <div className="stat"><img src={Oil} alt="" />Дизель</div>
-                        <div className="stat"><img src={Steering} alt="" />Автомат</div>
-                        <div className="stat"><img src={MapPinBlue} alt="" />Київ</div>
+                        <div className="stat"><img src={Speedometer} alt="" />{car.drivenDistance} тис. км</div>
+                        <div className="stat"><img src={Oil} alt="" />{car.fuelType}</div>
+                        <div className="stat"><img src={Steering} alt="" />{car.transmission}</div>
+                        <div className="stat"><img src={MapPinBlue} alt="" />{car.region}</div>
                     </div>
                     <div className="vinAndCarCodes">
                         <div className="carCode vcc"><div className="countryBadge"><img src={UAFlag} alt="" />UA</div><div className='code'>ВС 4849 ЕН</div></div>
@@ -70,7 +78,7 @@ export default function CarCardPage() {
                             Марка, модель, рік випуску
                             </div>
                             <div className="statValue">
-                            Volkswagen Golf Alltrack 2018
+                            {`${car.brand} ${car.model} ${car.year}`}
                             </div>
                         </div>
                         <div className="stat">
@@ -78,7 +86,7 @@ export default function CarCardPage() {
                             Двигун
                             </div>
                             <div className="statValue">
-                            2 л (184 к.с. / 135 кВт)
+                            {car.engineVolume} л
                             </div>
                         </div>
                         <div className="stat">
@@ -86,7 +94,7 @@ export default function CarCardPage() {
                             Пробіг
                             </div>
                             <div className="statValue">
-                            213 тис. кілометрів
+                            {car.drivenDistance} тис. кілометрів
                             </div>
                         </div>
                         <div className="stat">
@@ -94,7 +102,7 @@ export default function CarCardPage() {
                             Пальне
                             </div>
                             <div className="statValue">
-                            Дизель
+                            {car.fuelType}
                             </div>
                         </div>
                         <div className="stat">
@@ -102,7 +110,7 @@ export default function CarCardPage() {
                             Коробка передач
                             </div>
                             <div className="statValue">
-                            Автомат
+                            { car.transmission}
                             </div>
                         </div>
                         <div className="stat">
@@ -110,7 +118,7 @@ export default function CarCardPage() {
                             Привід
                             </div>
                             <div className="statValue">
-                            Повний
+                            {car.wheelDrive}
                             </div>
                         </div>
                     </div>
@@ -119,38 +127,38 @@ export default function CarCardPage() {
                         Опис від власника
                         </div>
                         <div className="text">
-                        Це потужний та надійний автомобіль, який прекрасно підійде для будь-яких дорожніх умов.
+                        {car.description}
                         </div>
                     </div>
                 </div>
                 <div className="rightSide">
                 <div className="button linkButton">Дивитись наступне авто<img src={ArrowRight} alt="" /></div>
                     <div className="title">
-                        Volkswagen Golf Alltrack 2018
+                    {`${car.brand} ${car.model} ${car.year}`}
                     </div>
                     <div className="price">
-                        <div className="usd">18 000 $</div>
-                        <div className="uah">~ 734 704 грн.</div>
+                        <div className="usd">{currencyService.format(car.price)} $</div>
+                        <div className="uah">~ {currencyService.format(currencyService.toUAH(car.price))} грн.</div>
                     </div>
                     <div className="ownerInfo">
                         <div className="userTitle">
                             <div className="avatar"><img src={Avatar} alt="" /></div>
                             <div className="info">
                                 <div className="role">Продавець</div>
-                                <div className="name">Невідомо</div>
+                                <div className="name">{car.ownerName?car.ownerName:'Невідомо'}</div>
 
                             </div>
                         </div>
                         <div className="button" onClick={showPhoneNumber}>
                             <span>
                                 {
-                                    !isPhoneNumberShown?'Показати телефон':'+380930621737'
+                                    !isPhoneNumberShown?'Показати телефон':`${car.phoneNumber}`
                                 }
                             </span><img src={Phone} alt="" /></div>
                     </div>
                     <div className="location">
                         <div className="text"><div className="title">Місцезнаходження</div>
-                            <div className="locationName"><img src={MapPin} alt="" />Київ, Дарницький</div></div>
+                            <div className="locationName"><img src={MapPin} alt="" />{`${car.region}, ${car.city?car.city:''}`}</div></div>
                         <div className="image"><img src={Map} alt="" /></div>
                     </div>
                     <div className="compareNsave">

@@ -20,7 +20,9 @@ export default function CreateCar
     images,
     description,
     phoneNumber,
-    engineVolume
+    engineVolume,
+    ownerName,
+    city
 )
 {
     return {
