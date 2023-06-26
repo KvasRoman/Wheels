@@ -16,11 +16,13 @@ export default function CreateCar
     hasCarAccident,
     technicalState,
     lacquerСoatingState,
+    color,
     offerDelay,
     images,
     description,
     phoneNumber,
     engineVolume,
+    drivenFrom,
     ownerName,
     city
 )
@@ -42,6 +44,10 @@ export default function CreateCar
         hasCarAccident: hasCarAccident,
         technicalState: technicalState,
         lacquerСoatingState: lacquerСoatingState,
+        drivenFrom: drivenFrom,
+        city: city,
+        color: color,
+        ownerName: ownerName,
         offerDelay: offerDelay,
         images: images,
         description: description,
@@ -49,4 +55,26 @@ export default function CreateCar
         engineVolume: engineVolume
     }
 }
-
+export function AdaptCar(car){
+    return {
+        vehicle_type: car.vehicleType,
+        brand: car.brand,
+        model: car.model,
+        vehicle_year: car.year,
+        mileage: car.drivenDistance,
+        mileage_unit: 'тис. ки',
+        body_type: car.bodyType,
+        state: car.region,
+        city: car.city,
+        description: car.description,
+        color: car.color,
+        shipped_from: car.drivenFrom,
+        technical_state: car.technicalState,
+        paint_coating: car.color,
+        price_us: car.price,
+        fuel_type: car.fuelType,
+        transmission_type: car.transmission,
+        drive_type: car.wheelDrive,
+        engine_volume: car.engineVolume
+    }
+}

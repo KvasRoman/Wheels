@@ -26,6 +26,8 @@ import {
 } from '../../../models/fakeDB';
 import { useState } from 'react';
 import Link from 'react-dom'
+import { carService } from '../../../core/api/supabase/services/cars';
+import { selectService } from '../../../core/api/supabase/services/selects';
 
 //
 
@@ -96,6 +98,8 @@ function isEmpty(v) {
 export default function CarList() {
 
 
+    carService.getCars().then(v => console.log(`hello ${v}`))
+    selectService.getAirConditioners().then(v => console.log(v))
     function Search(e) {
         let searchText = document.getElementById('_searchBar').value;
 

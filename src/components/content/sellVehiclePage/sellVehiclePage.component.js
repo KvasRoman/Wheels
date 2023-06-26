@@ -19,7 +19,7 @@ import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import DropDown from '../mainPage/dropdown/dropdown.component'
 import Input from 'react-phone-number-input/input'
-import { AdaptCarAccidents, AdaptConditioner, AdaptSalonColor, AdaptSalonMaterial, AdaptSeatAdjustments, AdaptSeatsHeated, AdaptSteeringAdjustment, AdaptTechState, AdaptVehicleType, AdaptlightType, AdaptpowerSteeringAmplifies, AdaptseatVentilation, AdaptspareWheel, AdaptvarnishCoatings, AdaptwindowLifter, vehicleTypes } from '../../../models/fakeDB'
+import { AdaptCarAccidents, AdaptVehicleType } from '../../../models/fakeDB'
 import {
     AdaptFuelType, AdaptRegion,
     cars as FDBCars,
@@ -59,130 +59,214 @@ import {
 
 } from '../../../models/fakeDB';
 import { carService } from '../../../core/api/supabase/services/cars'
+import { selectService } from '../../../core/api/supabase/services/selects'
+import { announcementsService } from '../../../core/api/supabase/services/announcements'
+import CreateCar, { AdaptCar } from '../../../models/car.model'
+import { fromEvent } from 'file-selector'
 
-const fuelTypes = FDBFuelTypes.map(ft => {
-    return { value: ft, title: AdaptFuelType(ft) }
-})
-const regions = FDBRegions.map(ft => {
-    return { value: ft, title: AdaptRegion(ft) }
-})
-const bodyTypes = FDBBodyTypes.map(ft => {
-    return { value: ft, title: ft }
-})
-const brandTypes = FDBBrandTypes.map(ft => {
-    return { value: ft, title: ft }
-})
-const modelTypes = FDBModelTypes.map(ft => {
-    return { value: ft, title: ft }
-})
-
-const transmissionTypes = FDBTransmissionTypes.map(ft => {
-    return { value: ft, title: AdaptTransmission(ft) }
-})
-const wheelDriveTypes = FDBWheelDriveTypes.map(ft => {
-    return { value: ft, title: AdaptWheelDrive(ft) }
-})
 const carYearsOfCreation = FDBYears.map(ft => {
     return { value: ft, title: ft }
 })
 const engineVolumes = FDBEngineVolumes.map(ft => {
     return { value: ft, title: ft }
 })
-const cities = FDBCities.map(ft => {
-    return { value: ft, title: AdaptCity(ft) }
-})
 const currencies = FDBCurrencies.map(ft => {
     return { value: ft, title: ft }
-})
-const colors = FDBColors.map(ft => {
-    return { value: ft, title: AdaptColor(ft) }
-})
-const coutnries = FDBCountries.map(ft => {
-    return { value: ft, title: AdaptCountry(ft) }
-})
-const varnishCoatings = FDBVarnishCoatings.map(ft => {
-    return { value: ft, title: AdaptvarnishCoatings(ft) }
 })
 const carAccidents = FDBCarAccidents.map(ft => {
     return { value: ft, title: AdaptCarAccidents(ft) }
 })
-const techStates = FDBTechSatets.map(ft => {
-    return { value: ft, title: AdaptTechState(ft) }
-})
-const lightTypes = FDBlightTypes.map(ft => {
-    return { value: ft, title: AdaptlightType(ft) }
-})
-const salonMaterials = FDBsalonMaterials.map(ft => {
-    return { value: ft, title: AdaptSalonMaterial(ft) }
-})
-const salonColors = FDBsalonColors.map(ft => {
-    return { value: ft, title: AdaptSalonColor(ft) }
-})
-const windowLifters = FDBwindowLifters.map(ft => {
-    return { value: ft, title: AdaptwindowLifter(ft) }
-})
-const powerSteeringAmplifies = FDBpowerSteeringAmplifies.map(ft => {
-    return { value: ft, title: AdaptpowerSteeringAmplifies(ft) }
-})
-const steeringAdjustment = FDBsteeringAdjustment.map(ft => {
-    return { value: ft, title: AdaptSteeringAdjustment(ft) }
-})
-const spareWheel = FDBspareWheel.map(ft => {
-    return { value: ft, title: AdaptspareWheel(ft) }
-})
-const conditioners = FDBconditioners.map(ft => {
-    return { value: ft, title: AdaptConditioner(ft) }
-})
-const seatAdjustments = FDBseatAdjustments.map(ft => {
-    return { value: ft, title: AdaptSeatAdjustments(ft) }
-})
-const seatsHeated = FDBseatsHeated.map(ft => {
-    return { value: ft, title: AdaptSeatsHeated(ft) }
-})
-const seatVentilation = FDBseatVentilation.map(ft => {
-    return { value: ft, title: AdaptseatVentilation(ft) }
-})
+
+
+function Adapt(v) {
+    return { value: v.id, title: v.name }
+}
+
+
+
+
 const formModel = {
-    images: undefined,
-    vType: undefined,
-    brand: undefined,
-    model: undefined,
-    year: undefined,
-    engineVolume: undefined,
-    transmission: undefined,
-    fuel: undefined,
-    wheelDrivenType: undefined,
-    drivenDist: undefined,
-    bodyType: undefined,
-    region: undefined,
-    city: undefined,
-    description: undefined,
-    color: undefined,
-    deliveredFrom: undefined,
-    involvmentInAccidents: undefined,
-    varnishCoatings: undefined,
-
-
-    techState: undefined,
-    lightType: undefined,
-    salonMaterial: undefined,
-    salonColor: undefined,
-    windowLifter: undefined,
-    powerSteeringAmplifie: undefined,
-    steeringAdjustment: undefined,
-    spareWheel: undefined,
-    conditioners: undefined,
-    seatAdjustments: undefined,
-    seatsHeated: undefined,
-    seatVentilation: undefined,
-
-    cover: undefined,
-    price: undefined,
-    phoneNumber: undefined,
+    images: null,
+    vehicleType: null,
+    brand: null,
+    model: null,
+    year: null,
+    engineVolume: null,
+    transmission: null,
+    fuelType: null,
+    wheelDrive: null,
+    drivenDistance: null,
+    bodyType: null,
+    region: null,
+    city: null,
+    description: null,
+    color: null,
+    deliveredFrom: null,
+    involvmentInAccidents: null,
+    varnishCoatings: null,
+    techState: null,
+    lightType: null,
+    salonMaterial: null,
+    salonColor: null,
+    windowLifter: null,
+    powerSteeringAmplifie: null,
+    steeringAdjustment: null,
+    spareWheel: null,
+    conditioners: null,
+    seatAdjustments: null,
+    seatsHeated: null,
+    seatVentilation: null,
+    cover: null,
+    price: null,
+    phoneNumber: null,
 }
 export default function SellVehiclePage() {
-    
-    
+
+    const [spareWheel, setSpareWheel] = useState();
+    const [conditioners, setConditioners] = useState();
+
+    useEffect(
+        () => { selectService.getAirConditioners().then(v => setConditioners(v.map(Adapt))); },
+        []);
+
+    useEffect(
+        () => { selectService.getSpareWheels().then(v => setSpareWheel(v.map(Adapt))); },
+        []);
+
+    const [fuelTypes, setFuel] = useState();
+
+    useEffect(
+        () => { selectService.getFuelTypes().then(v => setFuel(v.map(Adapt))); },
+        []);
+
+    const [bodyTypes, setBodyType] = useState();
+
+    useEffect(
+        () => { selectService.getBodyTypes().then(v => setBodyType(v.map(Adapt))); },
+        []);
+
+
+    const [brandTypes, setBrandType] = useState();
+
+    useEffect(
+        () => { selectService.getBrands().then(v => setBrandType(v.map(Adapt))); },
+        []);
+
+    const [modelTypes, setModelType] = useState();
+
+    useEffect(
+        () => { selectService.getCarModels().then(v => setModelType(v.map(Adapt))); },
+        []);
+
+    const [transmissionTypes, setTransmissionType] = useState();
+
+    useEffect(
+        () => { selectService.getTransmissionTypes().then(v => setTransmissionType(v.map(Adapt))); },
+        []);
+    const [wheelDriveTypes, setWheelDriveType] = useState();
+
+    useEffect(
+        () => { selectService.getDriveTypes().then(v => setWheelDriveType(v.map(Adapt))); },
+        []);
+
+    const [regions, setRegion] = useState();
+
+    useEffect(
+        () => { selectService.getStates().then(v => setRegion(v.map(Adapt))); },
+        []);
+
+    const [cities, setCity] = useState();
+
+    useEffect(
+        () => {
+            selectService.getCities().then(v => {
+                setCity(v.map(Adapt))
+            });
+        },
+        []);
+
+    const [colors, setСolor] = useState();
+
+    useEffect(
+        () => { selectService.getColors().then(v => setСolor(v.map(Adapt))); },
+        []);
+    const [coutnries, setCoutnry] = useState();
+
+    useEffect(
+        () => { selectService.getCountries().then(v => setCoutnry(v.map(Adapt))); },
+        []);
+
+
+    const [techStates, setTechState] = useState();
+
+    useEffect(
+        () => { selectService.getTechnicalStates().then(v => setTechState(v.map(Adapt))); },
+        []);
+    const [lightTypes, setLightType] = useState();
+
+    useEffect(
+        () => { selectService.getHeadlights().then(v => setLightType(v.map(Adapt))); },
+        []);
+
+    const [salonMaterials, setSalonMaterials] = useState();
+
+    useEffect(
+        () => { selectService.getInteriorMaterials().then(v => setSalonMaterials(v.map(Adapt))); },
+        []);
+    const [windowLifters, setWindowLifters] = useState();
+
+    useEffect(
+        () => { selectService.getElectricWindows().then(v => setWindowLifters(v.map(Adapt))); },
+        []);
+
+    const [steeringAdjustment, setSteeringAdjustment] = useState();
+
+    useEffect(
+        () => { selectService.getSteeringWheelAdjustments().then(v => setSteeringAdjustment(v.map(Adapt))); },
+        []);
+    const [seatAdjustments, setSeatAdjustments] = useState();
+
+    useEffect(
+        () => { selectService.getSeatAdjustments().then(v => setSeatAdjustments(v.map(Adapt))); },
+        []);
+
+    const [seatsHeated, setSeatsHeated] = useState();
+
+    useEffect(
+        () => { selectService.getSeatHeatings().then(v => setSeatsHeated(v.map(Adapt))); },
+        []);
+
+    const [seatVentilation, setSeatVentilation] = useState();
+
+    useEffect(
+        () => { selectService.getSeatVentilations().then(v => setSeatVentilation(v.map(Adapt))); },
+        []);
+    const [varnishCoatings, setVarnishCoating] = useState();
+
+    useEffect(
+        () => { selectService.getPaintCoatings().then(v => setVarnishCoating(v.map(Adapt))); },
+        []);
+    const [salonColors, setSalonColor] = useState();
+
+    useEffect(
+        () => { selectService.getColors().then(v => setSalonColor(v.map(Adapt))); },
+        []);
+    const [powerSteeringAmplifies, setPowerSteeringAmplify] = useState();
+
+    useEffect(
+        () => { selectService.getPowerSteerings().then(v => setPowerSteeringAmplify(v.map(Adapt))); },
+        []);
+    const [vehicleTypes, setVehicleType] = useState();
+
+    useEffect(
+        () => { selectService.getVehicleTypes().then(v => setVehicleType(v.map(Adapt))); },
+        []);
+
+    function updateCities() {
+        selectService.getCities(formModel.region).then(v => {
+            setCity(v.map(Adapt))
+        });
+    }
     const thumbsContainer = {
         display: 'flex',
         flexDirection: 'row',
@@ -247,9 +331,6 @@ export default function SellVehiclePage() {
 
 
 
-    const vTypes = vehicleTypes.map(v => {
-        return { value: v, title: AdaptVehicleType(v) }
-    })
 
     let value;
     function setValue(v) {
@@ -258,14 +339,62 @@ export default function SellVehiclePage() {
     }
 
     function onSubmit(e) {
-        if (e.target.classList.find(e => e == 'disabled')) {
-            return;
+        let pepData =
+        {
+            id: new Date().getTime(),
+            vehicle_type: formModel.vehicleType,
+            brand: formModel.brand,
+            model: formModel.model,
+            vehicle_year: formModel.year,
+            mileage: formModel.drivenDistance,
+            mileage_unit: 'тис. ки',
+            body_type: formModel.bodyType,
+            state: formModel.region,
+            city: formModel.city,
+            description: formModel.description,
+            color: formModel.color,
+            shipped_from: formModel.deliveredFrom,
+            technical_state: formModel.techState,
+            paint_coating: formModel.varnishCoatings,
+            price_us: formModel.price,
+            fuel_type: formModel.fuelType,
+            transmission_type: formModel.transmission,
+            drive_type: formModel.wheelDrive,
+            engine_volume: formModel.engineVolume
         }
-
+        // AdaptCar(CreateCar(
+        //     formModel.vehicleType,
+        //     formModel.region,
+        //     formModel.bodyType,
+        //     formModel.price,
+        //     formModel.drivenDistance,
+        //     formModel.brand,
+        //     formModel.model,
+        //     formModel.year,
+        //     formModel.transmission,
+        //     formModel.fuelType,
+        //     formModel.wheelDrive,
+        //     true,
+        //     false,
+        //     formModel.techState,
+        //     formModel.varnishCoatings,
+        //     formModel.color,
+        //     null,
+        //     null,
+        //     'some desc',
+        //     formModel.phoneNumber,
+        //     formModel.engineVolume,
+        //     formModel.deliveredFrom,
+        //     'some owner',
+        //     formModel.city
+        // ));
+        console.log(pepData);
+        announcementsService.createAnnouncment(
+            pepData, files).then(v => console.log(v))
 
     }
     function onFormValueChange(propName, value) {
-        carService.getCars().then(v => {console.log(v)})
+        carService.getCars().then(v => { console.log(v) })
         formModel[propName] = value;
         console.log(formModel);
     }
@@ -391,7 +520,7 @@ export default function SellVehiclePage() {
                                     <div className="title">
                                         Тип транспорту
                                     </div>
-                                    <DropDown onChange={e => { onFormValueChange('vType', e) }} items={vTypes} defaultTitle={'Оберіть'} />
+                                    <DropDown onChange={e => { onFormValueChange('vehicleType', e) }} items={vehicleTypes} defaultTitle={'Оберіть'} />
                                 </div>
                                 <div className="titleAside">
                                     <div className="title">
@@ -415,7 +544,7 @@ export default function SellVehiclePage() {
                                     <div className="title">
                                         Об’єм двигуна (л)
                                     </div>
-                                    <DropDown onChange={e => { onFormValueChange('transmission', e) }} items={engineVolumes} defaultTitle={"Оберіть об'єм"} />
+                                    <DropDown onChange={e => { onFormValueChange('engineVolume', e) }} items={engineVolumes} defaultTitle={"Оберіть об'єм"} />
                                 </div>
                                 <div className="titleAside">
                                     <div className="title">
@@ -427,21 +556,21 @@ export default function SellVehiclePage() {
                                     <div className="title">
                                         Паливо
                                     </div>
-                                    <DropDown onChange={e => { onFormValueChange('fuel', e) }} items={fuelTypes} defaultTitle={'Оберіть тип палива'} />
+                                    <DropDown onChange={e => { onFormValueChange('fuelType', e) }} items={fuelTypes} defaultTitle={'Оберіть тип палива'} />
                                 </div>
                                 <div className="titleAside">
                                     <div className="title">
                                         Тип приводу
                                     </div>
-                                    <DropDown onChange={e => { onFormValueChange('wheelDrivenType', e) }} items={wheelDriveTypes} defaultTitle={'Оберіть тип приводу'} />
+                                    <DropDown onChange={e => { onFormValueChange('wheelDrive', e) }} items={wheelDriveTypes} defaultTitle={'Оберіть тип приводу'} />
                                 </div>
                                 <div className="titleAside inputTextAndSelect">
                                     <div className="title">
                                         Пробіг
                                     </div>
                                     <div className='multipleInputs'>
-                                        <input type="text" placeholder='Введіть пробіг' onChange={e => { onFormValueChange('drivenDist', e.target.value) }} />
-                                        <DropDown items={vTypes} defaultTitle={'тис. км'} />
+                                        <input type="text" placeholder='Введіть пробіг' onChange={e => { onFormValueChange('drivenDistance', e.target.value) }} />
+                                        <DropDown items={vehicleTypes} defaultTitle={'тис. км'} />
                                     </div>
 
                                 </div>
@@ -455,7 +584,7 @@ export default function SellVehiclePage() {
                                     <div className="title">
                                         Регіон
                                     </div>
-                                    <DropDown onChange={e => { onFormValueChange('region', e) }} items={regions} defaultTitle={'Оберіть регіон'} />
+                                    <DropDown onChange={e => { onFormValueChange('region', e); updateCities() }} items={regions} defaultTitle={'Оберіть регіон'} />
                                 </div>
                                 <div className="titleAside">
                                     <div className="title">
@@ -595,7 +724,7 @@ export default function SellVehiclePage() {
                                         Ціна
                                     </div>
                                     <div className='multipleInputs'>
-                                        <input type="text" placeholder='Введіть вартість' />
+                                        <input type="text" placeholder='Введіть вартість' onChange={e => { onFormValueChange('price', e.target.value) }}/>
                                         <DropDown items={currencies} defaultTitle={'Валюта '} />
                                     </div>
 
@@ -625,8 +754,8 @@ export default function SellVehiclePage() {
                             <div className="tip">
                                 Ваші персональні дані будуть оброблені та захищені згідно з  <span>Політикою приватності</span>
                             </div>
-                            <div className="submit" onClick={onSubmit}>
-                                <div className="button disabled">
+                            <div className="submit" >
+                                <div className="button" onClick={onSubmit}>
                                     Розмістити оголошення
                                 </div>
                                 <div className="notes">

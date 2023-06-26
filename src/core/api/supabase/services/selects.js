@@ -44,6 +44,7 @@ class SelectsSetvice {
   // specify the country id to filter by it
   async getCities(stateId) {
     const query = supabase.from('Cities').select(`
+    id,
     name,
     created_at,
     States!inner(*)
