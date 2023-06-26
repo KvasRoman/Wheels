@@ -3,7 +3,7 @@ import { supabase } from ".."
 class AnnouncementsService {
   // create announcement and return it
   async createAnnouncment(payload, photos) {
-    const { data, error } = supabase.from('Announcement').insert(payload).select(`
+    const { data, error } = await supabase.from('Announcement').insert(payload).select(`
     id,
     VehicleTypes(id, name),
     Brands(id, name),
@@ -15,7 +15,7 @@ class AnnouncementsService {
     Cities(id, name),
     description,
     no_car_dealers_calls,
-    color:Colors(id, name),
+    color:color(id, name),
     shipped_from,
     crashed,
     TechnicalStates(id, name),
@@ -23,7 +23,7 @@ class AnnouncementsService {
     AirConditioners(id, name),
     ElectricWindows(id, name),
     InteriorMaterials(id, name),
-    interior_color:Colors(id, name),
+    interior_color:interior_color(id, name),
     PowerSteerings(id, name),
     SteeringWheelAdjustments(id, name),
     SpareWheels(id, name),
@@ -32,13 +32,13 @@ class AnnouncementsService {
     SeatHeatings(id, name),
     SeatVentilations(id, name),
     price_us,
-    discrount_for_uaf,
+    discount_for_uaf,
     cleared_by_cuctoms,
     possible_bargaing,
     possible_exchange,
     possible_partial_pay,
     FuelTypes(id, name),
-    TransimissionTypes(id, name),
+    TransmissionTypes(id, name),
     DriveTypes(id, name),
     engine_volume,
     created_at

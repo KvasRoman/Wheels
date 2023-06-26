@@ -338,10 +338,10 @@ export default function SellVehiclePage() {
         console.log(v);
     }
 
-    function onSubmit(e) {
+    async function onSubmit(e) {
         let pepData =
         {
-            id: new Date().getTime(),
+            // id: new Date().getTime(),
             vehicle_type: formModel.vehicleType,
             brand: formModel.brand,
             model: formModel.model,
@@ -389,7 +389,7 @@ export default function SellVehiclePage() {
         //     formModel.city
         // ));
         console.log(pepData);
-        announcementsService.createAnnouncment(
+        await announcementsService.createAnnouncment(
             pepData, files).then(v => console.log(v))
 
     }
