@@ -20,6 +20,7 @@ export default function CreateCar
     images,
     description,
     phoneNumber,
+    engineVolume
 )
 {
     return {
@@ -42,7 +43,8 @@ export default function CreateCar
         offerDelay: offerDelay,
         images: images,
         description: description,
-        phoneNumber: phoneNumber
+        phoneNumber: phoneNumber,
+        engineVolume: engineVolume
     }
 }
 
