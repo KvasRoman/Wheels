@@ -45,11 +45,14 @@ class AnnouncementsService {
     `)
 
     photos.forEach(async (photo) => {
-      await supabase.storage.from('announcments').upload(photo.name, photo)
-      const imgUrl = supabase.storage.from('announcments').getPublicUrl(photo.name)
+
+      const path = `${photo.name}_${new Date().toISOString()}`
+      await supabase.storage.from('announcments').upload(path, photo)
+      const res = supabase.storage.from('announcments').getPublicUrl(path)
+
       await supabase.from('AnnouncementsPhotos').insert({
-        announcement: data.id,
-        url: imgUrl
+        announcement: data[0].id,
+        url: res.data.publicUrl
       })
     })
 

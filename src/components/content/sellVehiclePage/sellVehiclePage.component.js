@@ -389,6 +389,7 @@ export default function SellVehiclePage() {
         //     formModel.city
         // ));
         console.log(pepData);
+        console.log(files)
         await announcementsService.createAnnouncment(
             pepData, files).then(v => console.log(v))
 
