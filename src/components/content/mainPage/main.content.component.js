@@ -48,11 +48,40 @@ import CardSlider from './cardSlider/cardslider.component'
 
 
 //-----
-
+import {useEffect} from 'react'
+import { selectService } from '../../../core/api/supabase/services/selects.js'
 
 import './main.content.component.scss'
 import zIndex from '@mui/material/styles/zIndex'
 export default function Main(props) {
+
+  useEffect(() => {
+    console.log('here')
+    // selectService.getAirConditioners()
+    // selectService.getBodyTypes()
+    // selectService.getBrands()
+    // selectService.getCarModels()
+    selectService.getCities()
+    // selectService.getCities(13)
+    // selectService.getColors()
+    // selectService.getCountries()
+    // selectService.getDriveTypes()
+    // selectService.getElectricWindows()
+    // selectService.getFuelTypes()
+    // selectService.getHeadlights()
+    // selectService.getInteriorMaterials()
+    // selectService.getPaintCoatings()
+    // selectService.getPowerSteerings()
+    // selectService.getSeatAdjustments()
+    // selectService.getSeatHeatings()
+    // selectService.getSeatVentilations()
+    // selectService.getStates()
+    // selectService.getSteeringWheelAdjustments()
+    // selectService.getTechnicalStates()
+    // selectService.getTransmissionTypes()
+    // selectService.getVehicleTypes()
+  }, [])
+
   function changeFolder(e) {
     let childernList = document.getElementsByClassName('folders')[0].children[0].children;
     for (let child of childernList) {
