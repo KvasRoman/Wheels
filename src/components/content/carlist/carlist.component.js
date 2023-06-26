@@ -2,7 +2,7 @@ import { Slider } from '@mui/material';
 import DropDown from '../mainPage/dropdown/dropdown.component';
 import './carlist.component.scss'
 import ValueSlider from '../mainPage/slider/slider.component';
-import Search from '../mainPage/svgs/search.svg'
+import SearchIcon from '../mainPage/svgs/search.svg'
 import BluePlus from './bluePlus.svg'
 import CrossedFilter from './crossedFilter.svg'
 import CloseLine from './closeLine.svg'
@@ -17,42 +17,158 @@ import {
     brandTypes as FDBBrandTypes,
     modelTypes as FDBModelTypes,
     transmissionTypes as FDBTransmissionTypes,
-    AdaptTransmission
+    AdaptTransmission,
+    wheelDriveTypes as FDBWheelDriveTypes,
+    AdaptWheelDrive,
+    years as FDBYears,
+    years,
+    engineVolumes as FDBEngineVolumes
 } from '../../../models/fakeDB';
-export default function CarList() {
-    // 
-    // 
-    // 
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //  тут задати колекції для форми
-    // 
-    // 
-    // 
-    //     
-    //
-    const fuelTypes = FDBFuelTypes.map(ft => {
-        return { value: ft, title: AdaptFuelType(ft) }
-    })
-    const regions = FDBRegions.map(ft => {
-        return { value: ft, title: AdaptRegion(ft) }
-    })
-    const bodyTypes = FDBBodyTypes.map(ft => {
-        return { value: ft, title: ft }
-    })
-    const brandTypes = FDBBrandTypes.map(ft => {
-        return { value: ft, title: ft }
-    })
-    const modelTypes = FDBModelTypes.map(ft => {
-        return { value: ft, title: ft }
-    })
+import { useState } from 'react';
 
-    const transmissionTypes = FDBTransmissionTypes.map(ft => {
-        return { value: ft, title: AdaptTransmission(ft) }
-    })
-    // 
-    // 
-    // 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//
+
+//
+
+
+// 
+// 
+// 
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//  тут задати колекції для форми
+// 
+// 
+// 
+//     
+//
+const fuelTypes = FDBFuelTypes.map(ft => {
+    return { value: ft, title: AdaptFuelType(ft) }
+})
+const regions = FDBRegions.map(ft => {
+    return { value: ft, title: AdaptRegion(ft) }
+})
+const bodyTypes = FDBBodyTypes.map(ft => {
+    return { value: ft, title: ft }
+})
+const brandTypes = FDBBrandTypes.map(ft => {
+    return { value: ft, title: ft }
+})
+const modelTypes = FDBModelTypes.map(ft => {
+    return { value: ft, title: ft }
+})
+
+const transmissionTypes = FDBTransmissionTypes.map(ft => {
+    return { value: ft, title: AdaptTransmission(ft) }
+})
+const wheelDriveTypes = FDBWheelDriveTypes.map(ft => {
+    return { value: ft, title: AdaptWheelDrive(ft) }
+})
+const carYearsOfCreation = FDBYears.map(ft => {
+    return { value: ft, title: ft }
+})
+const engineVolumes = FDBEngineVolumes.map(ft => {
+    return { value: ft, title: ft }
+})
+const priceRange = [5000, 100000]
+const distanceTraveledRange = [5000, 400000]
+
+// 
+// 
+// 
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+let _region;
+let _bodyType;
+let _brand;
+let _years = [undefined, undefined];
+let _transmissions;
+let _fuels;
+let _wheelDriveTypes;
+let _engineVolumeRng = [undefined, undefined];
+let _model;
+let priceRng = priceRange;
+let drivenDistRng = distanceTraveledRange;
+function isEmpty(v) {
+    return (v == null || v == undefined || v == '')
+}
+
+export default function CarList() {
+
+
+    function Search(e) {
+        let searchText = document.getElementById('_searchBar').value;
+
+
+
+        return setState(FDBCars.filter((c) => {
+            // console.log((_region != '' || _region != null || c.region === _region))
+            // console.log((_bodyType != '' || !_bodyType || c.bodyType === _bodyType))
+            // console.log((c.drivenDistance > drivenDistRng[0] && c.drivenDistance < drivenDistRng[1]))
+            // console.log((c.price > priceRng[0] && c.price < priceRng[1]))
+            // console.log(_years)
+            // console.log(typeof _bodyType)
+            // console.log(typeof _region)
+            _transmissions = Array.from(document.querySelectorAll('[id*="TM"]')).filter(tm => {
+                return tm.checked
+            }).map(tm => {
+                return tm.value
+            })
+            _fuels = Array.from(document.querySelectorAll('[id*="FT"]')).filter(ft => {
+                return ft.checked
+            }).map(ft => {
+                return ft.value
+            })
+            _wheelDriveTypes = Array.from(document.querySelectorAll('[id*="WD"]')).filter(wd => {
+                return wd.checked
+            }).map(wd => {
+                return wd.value
+            })
+
+            console.log(_transmissions)
+            console.log(_wheelDriveTypes)
+            console.log(_fuels)
+
+
+
+            return (c.price > priceRng[0] && c.price < priceRng[1])
+                &&
+                (c.drivenDistance > drivenDistRng[0] && c.drivenDistance < drivenDistRng[1])
+                &&
+                (isEmpty(_region) || c.region == _region)
+                &&
+                (isEmpty(_bodyType) || c.bodyType == _bodyType)
+                &&
+                (isEmpty(_brand) || c.brand == _brand)
+                &&
+                (isEmpty(_model) || c.model == _model)
+                &&
+                (isEmpty(_years) || isEmpty(_years[0]) && isEmpty(_years[1]) || (c.year >= _years[0] && isEmpty(_years[1])) || (c.year <= _years[1] && isEmpty(_years[0])) || c.year >= _years[0] && c.year <= _years[1])
+                &&
+                (isEmpty(_engineVolumeRng) || isEmpty(_engineVolumeRng[0]) && isEmpty(_engineVolumeRng[1]) || (c.engineVolume >= _engineVolumeRng[0] && isEmpty(_engineVolumeRng[1])) || (c.engineVolume <= _engineVolumeRng[1] && isEmpty(_engineVolumeRng[0])) || c.engineVolume >= _engineVolumeRng[0] && c.engineVolume <= _engineVolumeRng[1])
+                &&
+                (isEmpty(_transmissions) || _transmissions.find(x => x == c.transmission))
+                &&
+                (isEmpty(_fuels) || _fuels.find(x => x == c.fuelType))
+                &&
+                (isEmpty(_wheelDriveTypes) || _wheelDriveTypes.find(x => x == c.wheelDrive))
+
+
+        }));
+    }
+    const [carList, setState] = useState([...FDBCars]);
+
+
+
+
+
+
+
+
+    //
+    function numberWithSpaces(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    }
+
     function changeActiveVType(e) {
         let childernList = document.getElementById('vTypeList1').children;
         for (let child of childernList) {
@@ -101,43 +217,55 @@ export default function CarList() {
                         </div>
                         <div className="region dropdown">
                             <p>Регіон</p>
-                            <DropDown items={regions} />
+                            <DropDown items={regions} onChange={(v) => _region = v} />
                         </div>
                         <div className="carBody dropdown">
                             <p>Тип кузова</p>
-                            <DropDown items={bodyTypes} />
+                            <DropDown items={bodyTypes} onChange={(v) => _bodyType = v} />
                         </div>
                         <div className="Price slider">
                             <p>Ціна</p>
-                            <ValueSlider width="360px" />
+                            <ValueSlider
+                                width="360px"
+                                min={priceRange[0]}
+                                max={priceRange[1]}
+                                onChange={(v) => { priceRng = v }}
+                            />
                             <div className="sliderRange">
-                                <span>6000$</span>
-                                <span>12000$</span>
+                                <span>{numberWithSpaces(priceRange[0])}$</span>
+                                <span>{numberWithSpaces(priceRange[1])}$</span>
                             </div>
 
                         </div>
                         <div className="distanceTraveled slider">
                             <p>Пробіг</p>
-                            <ValueSlider width="360px" />
+                            <ValueSlider
+                                width="360px"
+                                min={distanceTraveledRange[0]}
+                                max={distanceTraveledRange[1]}
+                                onChange={(v) => { drivenDistRng = v }} />
                             <div className="sliderRange">
-                                <span>6000$</span>
-                                <span>12000$</span>
+                                <span>{numberWithSpaces(distanceTraveledRange[0])} км</span>
+                                <span>{numberWithSpaces(distanceTraveledRange[1])} км</span>
                             </div>
                         </div>
                         <div className="Brand dropdown">
                             <p>Марка</p>
-                            <DropDown items={brandTypes} />
+                            <DropDown items={brandTypes} onChange={(v) => _brand = v} />
                         </div>
                         <div className="Model dropdown">
                             <p>Модель</p>
-                            <DropDown items={modelTypes} />
+                            <DropDown items={modelTypes} onChange={(v) => _model = v} />
                         </div>
                         <div className="Age dropdown fromto">
                             <p>Роки</p>
                             <div className='row'>
-                                <DropDown />
+                                <DropDown items={carYearsOfCreation} onChange=
+                                    {(v) => _years[0] = v}
+                                />
                                 <p>до</p>
-                                <DropDown />
+                                <DropDown items={carYearsOfCreation} onChange=
+                                    {(v) => _years[1] = v} />
                             </div>
                         </div>
                         <div className='button addMark '><img src={BluePlus} alt="" /> Додати ще марку</div>
@@ -155,7 +283,7 @@ export default function CarList() {
                                             <label htmlFor={'TM' + index}>{f.title}</label>
                                         </div>)
                                 }
-                                
+
 
                             </div>
                         </div>
@@ -179,26 +307,24 @@ export default function CarList() {
                         <div className="checkbox">
                             <p>Тип приводу</p>
                             <div className="box">
-                                <div>
-                                    <input type='checkbox' name='thing0' value='valuable' id="thing0" />
-                                    <label htmlFor="thing0">Повний</label>
-                                </div>
-                                <div>
-                                    <input type='checkbox' name='thing11' value='valuable' id="thing11" />
-                                    <label htmlFor="thing11">Передній</label>
-                                </div>
-                                <div>
-                                    <input type='checkbox' name='thing12' value='valuable' id="thing12" />
-                                    <label htmlFor="thing12">Задній</label>
-                                </div>
+                                {
+                                    wheelDriveTypes.map((f, index) =>
+                                        <div>
+                                            <input type='checkbox' name={'WD'} value={f.value} id={'WD' + index} />
+                                            <label htmlFor={'WD' + index}>{f.title}</label>
+                                        </div>)
+                                }
                             </div>
                         </div>
-                        <div className="Age dropdown fromto">
-                            <p>Роки</p>
+                        <div className="engineVolume dropdown fromto">
+                            <p>Об’єм двигуна (л)</p>
                             <div className='row'>
-                                <DropDown />
+                                <DropDown items={engineVolumes} onChange=
+                                    {(v) => _engineVolumeRng[0] = v}
+                                />
                                 <p>до</p>
-                                <DropDown />
+                                <DropDown items={engineVolumes} onChange=
+                                    {(v) => _engineVolumeRng[1] = v} />
                             </div>
                         </div>
                         <div className="checkbox">
@@ -224,27 +350,25 @@ export default function CarList() {
                         <div className='ExtendedSearch'><img src={Search} alt="" />Розширений пошук</div>
                     </div>
                     <div className="rightSide">
-                        <div className="searchBar"><input type="text" /><div>Шукати<img src={Search} alt="" /></div></div>
+                        <div className="searchBar"><input type="text" id='_searchBar' /><div onClick={Search}>Шукати<img src={SearchIcon} alt="" /></div></div>
                         {/* <div className="tags"><div><div className="tag"><img src={CloseLine} alt="" />a</div></div>
                             <div className='saveSearch'><div>Зберегти пошук</div>
                             </div>
                         </div> */}
-                        <div className="resultCount"><p>216 результатів</p></div>
-                        <div className="orderByAndOfferQuantity">
+                        <div className="resultCount"><p>{carList.length} результатів</p></div>
+
+                        {/* <div className="orderByAndOfferQuantity">
                             <div className="orderBy">
                                 <DropDown />
                             </div>
                             <div className="offerQuantity">
                                 <DropDown />
                             </div>
-                        </div>
+                        </div> */}
                         <div className="carCollection">
-                            <CarCard />
-                            <CarCard />
-                            <CarCard />
-                            <CarCard />
-                            <CarCard />
-                            <CarCard />
+                            {
+                                carList.map((c) => <CarCard car={c} />)
+                            }
                         </div>
                     </div>
 
