@@ -6,6 +6,7 @@ import Footer from './components/footer/footer.component'
 import {Routes, Route} from 'react-router-dom' 
 import CarList from './components/content/carlist/carlist.component';
 import CarCardPage from './components/content/carCardPage/carCardPage.component';
+import SellVehiclePage from './components/content/sellVehiclePage/sellVehiclePage.component';
 function App() {
   return (
     
@@ -15,6 +16,7 @@ function App() {
         
         <Route path='/Search' element={<CarList />}/>
         <Route path='/CarCard' element={<CarCardPage />}/>
+        <Route path='/SellVehicle' element={<SellVehiclePage/>}/>
         <Route path='/' element={<Main />}/>
       </Routes>
       

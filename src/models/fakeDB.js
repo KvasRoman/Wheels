@@ -270,7 +270,417 @@ export const years = [
     2014,
     2015,
 ]
+export const cities = [
+    'Kiev',
+    'Kharkiv',
+    'Lviv',
+    'Odessa',
+    'Dnipro',
+    'Donetsk',
+    'Zaporizhzhia',
+    'Kryvyi Rih',
+    'Mykolaiv',
+    'Mariupol',
+    'Luhansk',
+    'Vinnytsia',
+    'Simferopol',
+    'Kherson',
+    'Poltava',
+    'Chernihiv',
+    'Cherkasy',
+    'Sumy',
+    'Zhytomyr',
+    'Khmelnytskyi',
+]
+export const citiesUA = [
 
+    'Київ',
+    'Харків',
+    'Львів',
+    'Одеса',
+    'Дніпро',
+    'Донецьк',
+    'Запоріжжя',
+    'Кривий Ріг',
+    'Миколаїв',
+    'Маріуполь',
+    'Луганськ',
+    'Вінниця',
+    'Сімферополь',
+    'Херсон',
+    'Полтава',
+    'Чернігів',
+    'Черкаси',
+    'Суми',
+    'Житомир',
+    'Хмельницький',
+]
+export const currencies = [
+    '$',
+    '₴'
+
+]
+export function AdaptCity(WD) {
+    let index = cities.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return citiesUA[index];
+}
+export const colors = [
+
+    'White',
+    'Black',
+    'Silver',
+    'Gray',
+    'Blue',
+    'Red',
+    'Green',
+    'Brown',
+    'Yellow',
+    'Orange',
+    'Beige',
+    'Gold',
+    'Bronze',
+    'Purple',
+    'Pink',
+    'Turquoise',
+    'Burgundy',
+    'Navy',
+    'Teal',
+    'Charcoal',
+]
+export const colorsUA = [
+    'Білий',
+    'Чорний',
+    'Сріблястий',
+    'Сірий',
+    'Синій',
+    'Червоний',
+    'Зелений',
+    'Коричневий',
+    'Жовтий',
+    'Помаранчевий',
+    'Бежевий',
+    'Золотий',
+    'Бронзовий',
+    'Фіолетовий',
+    'Рожевий',
+    'Бірюзовий',
+    'Бордовий',
+    'Темно-синій',
+    'Брудно-зелений',
+    'Вугільний',
+]
+export function AdaptColor(WD) {
+    let index = colors.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return colorsUA[index];
+}
+export const coutnries = [
+    'Albania',
+    'Austria',
+    'Belgium',
+    'Croatia',
+    'Cyprus',
+    'Denmark',
+    'Estonia',
+    'Finland',
+    'Germany',
+    'Greece',
+    'Hungary',
+    'Ireland',
+    'Italy',
+    'Latvia',
+    'Lithuania',
+    'Malta',
+    'Netherlands',
+    'Poland',
+    'Romania',
+    'Sweden',
+    'Ukraine',
+]
+export const coutnriesUA = [
+    'Албанія',
+    'Австрія',
+    'Бельгія',
+    'Хорватія',
+    'Кіпр',
+    'Данія',
+    'Естонія',
+    'Фінляндія',
+    'Німеччина',
+    'Греція',
+    'Угорщина',
+    'Ірландія',
+    'Італія',
+    'Латвія',
+    'Литва',
+    'Мальта',
+    'Нідерланди',
+    'Польща',
+    'Румунія',
+    'Швеція',
+    'Україна',
+]
+export function AdaptCountry(WD) {
+    let index = coutnries.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return coutnriesUA[index];
+}
+export const varnishCoatings = [
+    'As new',
+    'Professionally edited traces of use',
+    'Unedited traces of use'
+]
+export const varnishCoatingsUA = [
+    'Як нове',
+    'Професійно виправлені сліди використання',
+    'Невиправлені сліди використання',
+]
+export function AdaptvarnishCoatings(WD) {
+    let index = varnishCoatings.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return varnishCoatingsUA[index];
+}
+export const carAccidents = [
+    'was in car accident',
+    "wasn't in car accident",
+]
+export const carAccidentsUA = [
+    'Був у ДТП',
+    "Не був у ДТП",
+]
+export function AdaptCarAccidents(WD) {
+    let index = carAccidents.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return carAccidentsUA[index];
+}
+export const techStates = [
+    "Completely undamaged",
+    "Professionally repaired damages",
+    'Unrepaired damages',
+    'Non-functional / For parts',
+]
+export const techStatesUA = [
+    'Повністю непошкоджене',
+    'Професійно відремонтовані пошкодження',
+    'Не відремонтовані пошкодження',
+    'Не на ходу / На запчастини',
+]
+export function AdaptTechState(WD) {
+    let index = techStates.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return techStatesUA[index];
+}
+export const lightTypes = [
+
+    "Xenon/Bi-xenon",
+    "Laser",
+    "LED",
+    "Matrix",
+    "Halogen",
+]
+export const lightTypesUA = [
+    'Ксенонові/Біксенонові',
+    'Лазерні',
+    'Світлодіодні',
+    'Матричні',
+    'Галогенні',
+]
+export function AdaptlightType(WD) {
+    let index = lightTypes.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return lightTypesUA[index];
+}
+
+export const salonMaterials = [
+
+    "Fabric",
+    "Leather",
+    "Velvet",
+    "Combination",
+    "Artificial leather",
+    "Alcantara",
+]
+
+export const salonMaterialsUA = [
+    'Тканина',
+    'Шкіра',
+    'Велюр',
+    'Комбінований',
+    'Штучна шкіра',
+    'Алькантара',
+]
+export function AdaptSalonMaterial(WD) {
+    let index = salonMaterials.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return salonMaterialsUA[index];
+}
+export const salonColors = [
+    "Light",
+    "Dark",
+    "Brown",
+]
+export const salonColorsUA = [
+    'Світлий',
+    'Темний',
+    'Коричневий',
+]
+export function AdaptSalonColor(WD) {
+    let index = salonColors.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return salonColorsUA[index];
+}
+export const windowLifters = [
+    "Front",
+    "Front and rear",
+]
+export const windowLiftersUA = [
+    'Передні',
+    'Передні та задні',
+]
+export function AdaptwindowLifter(WD) {
+    let index = windowLifters.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return windowLiftersUA[index];
+}
+export const powerSteeringAmplifies = [
+
+    "Hydraulic",
+    "Electric",
+]
+export const powerSteeringAmplifiesUA = [
+    'Гідро',
+    'Електро'
+]
+export function AdaptpowerSteeringAmplifies(WD) {
+    let index = powerSteeringAmplifies.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return powerSteeringAmplifiesUA[index];
+}
+export const steeringAdjustment = [
+    "Height adjustment",
+    "Height and reach adjustment",
+]
+export const steeringAdjustmentUA = [
+    'По висоті',
+    'По висоті та по вильоту',
+]
+export function AdaptSteeringAdjustment(WD) {
+    let index = steeringAdjustment.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return steeringAdjustmentUA[index];
+}
+export const spareWheel = [
+
+    "Full-size",
+    "Spare tire",
+]
+export const spareWheelUA = [
+    'Повнорозмірне',
+    'Докатка',
+]
+export function AdaptspareWheel(WD) {
+    let index = spareWheel.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return spareWheelUA[index];
+}
+export const conditioners = [
+    "Single-zone climate control",
+    "Dual-zone climate control",
+    "Multi-zone climate control",
+]
+export const conditionersUA = [
+    'Клімат-контроль 1-зонний',
+    'Клімат-контроль 2-зонний',
+    'Клімат-контроль багатозонний',
+]
+export function AdaptConditioner(WD) {
+    let index = conditioners.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return conditionersUA[index];
+}
+export const seatAdjustments = [
+
+    "Manual driver seat adjustment",
+    "Manual front seat adjustment",
+    "Electric driver seat adjustment",
+    "Electric front seat adjustment",
+    "Electric front and rear seat adjustment",
+]
+
+export const seatAdjustmentsUA = [
+    'Ручне регулювання сидіння водія',
+    'Ручне регулювання передніх сидінь',
+    'Електрорегулювання сидіння водія',
+    'Електрорегулювання передніх сидінь',
+    'Електрорегулювання передніх та задніх сидінь',
+]
+export function AdaptSeatAdjustments(WD) {
+    let index = seatAdjustments.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return seatAdjustmentsUA[index];
+}
+export const seatsHeated = [
+
+    "Front seats",
+    "Front and rear seats",
+]
+export const seatsHeatedUA = [
+    'Передні сидіння',
+    'Передні та задні сидіння',
+]
+export function AdaptSeatsHeated(WD) {
+    let index = seatsHeated.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return seatsHeatedUA[index];
+}
+export const seatVentilation = [
+    "Front seats",
+    "Front and rear seats",
+]
+export const seatVentilationUA = [
+    'Передні сидіння',
+    'Передні та задні сидіння',
+]
+export function AdaptseatVentilation(WD) {
+    let index = seatVentilation.findIndex((r) => r == WD)
+    if (index == -1)
+        return;
+    else
+        return seatVentilationUA[index];
+}
 export const cars = [
     CreateCar(
         vehicleTypes[0],

@@ -15,6 +15,7 @@ function CustomIcon() {
 }
 
 export default function DropDown(props) {
+
     const [age, setAge] = React.useState('');
     const handleChange = (event) => {;
         if(props.onChange){
@@ -39,7 +40,7 @@ export default function DropDown(props) {
                 IconComponent={CustomIcon}
             >
                 <MenuItem value="">
-                    <em>Всі</em>
+                    { props.defaultTitle!=null?<em>{props.defaultTitle}</em>:<em>Всі</em>}
                 </MenuItem>
 
                 {items}
