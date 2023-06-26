@@ -44,8 +44,13 @@ class AnnouncementsService {
     created_at
     `)
 
-    photos.forEach((photo) => {
-      supabase.storage.from('').upload(photo.filename)
+    photos.forEach(async (photo) => {
+      await supabase.storage.from('announcments').upload(photo.name, photo)
+      const imgUrl = supabase.storage.from('announcments').getPublicUrl(photo.name)
+      await supabase.from('AnnouncementsPhotos').insert({
+        announcement: data.id,
+        url: imgUrl
+      })
     })
 
     if(error) {
