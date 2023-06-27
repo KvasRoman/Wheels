@@ -44,6 +44,7 @@ class AnnouncementsService {
     engine_volume,
     users(id, firstname, lastname, phone, avatar_url),
     AnnouncementsPhotos(id, url),
+    vehicle_year,
     created_at
     `)
 
@@ -100,6 +101,7 @@ class AnnouncementsService {
     DriveTypes(id, name),
     engine_volume,
     users(id, firstname, lastname, phone, avatar_url),
+    vehicle_year,
     created_at
     `)
 
