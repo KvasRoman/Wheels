@@ -43,6 +43,7 @@ class AnnouncementsService {
     DriveTypes(id, name),
     engine_volume,
     users(id, firstname, lastname, phone, avatar_url),
+    AnnouncementsPhotos(id, url),
     created_at
     `)
 
