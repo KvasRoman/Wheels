@@ -240,6 +240,7 @@ export default function CarList() {
         []);
     
     const [annouces , setAnnounce] = useState([]);
+    
     useEffect(
         () => { setAnnounce(announcements)},
         []);
@@ -247,12 +248,13 @@ export default function CarList() {
 
     carService.getCars().then(v => console.log(`hello ${v}`))
     selectService.getAirConditioners().then(v => console.log(v))
+    
+    
     function Search(e) {
         let searchText = document.getElementById('_searchBar').value;
 
 
-
-        return setState([...FDBCars].filter((c) => {
+        return setAnnounce([...announcements].filter((c) => {
             // console.log((_region != '' || _region != null || c.region === _region))
             // console.log((_bodyType != '' || !_bodyType || c.bodyType === _bodyType))
             // console.log((c.drivenDistance > drivenDistRng[0] && c.drivenDistance < drivenDistRng[1]))
@@ -275,35 +277,48 @@ export default function CarList() {
             }).map(wd => {
                 return wd.value
             })
-
+            let vtype1 = document.getElementById('vTypeList1').children
+            let vtype2 = document.getElementById('vTypeList2').children
+            let vtype = [...vtype1,...vtype2]
+            
+            let vTypeId = null;
+            for(let v of vtype){
+                if(v.classList.contains('active')){
+                    vTypeId = v.value;
+                }
+                
+            }
+            console.log(vtype);
+            console.log("Roman");
+            console.log(vTypeId);
+            console.log("Roman");
             console.log(_transmissions)
             console.log(_wheelDriveTypes)
             console.log(_fuels)
 
 
 
-            return (c.price > priceRng[0] && c.price < priceRng[1])
+            return (c.price_us > priceRng[0] && c.price_us < priceRng[1])
                 &&
-                (c.drivenDistance > drivenDistRng[0] && c.drivenDistance < drivenDistRng[1])
+                (c.mileage > drivenDistRng[0] && c.mileage < drivenDistRng[1])
                 &&
-                (isEmpty(_region) || c.region == _region)
+                (isEmpty(_region) || c.States.id == _region)
                 &&
-                (isEmpty(_bodyType) || c.bodyType == _bodyType)
+                (isEmpty(_bodyType) || c.BodyTypes.id == _bodyType)
                 &&
-                (isEmpty(_brand) || c.brand == _brand)
+                (isEmpty(_brand) || c.Brands.id == _brand)
                 &&
-                (isEmpty(_model) || c.model == _model)
+                (isEmpty(_model) || c.CarModels.id == _model)
                 &&
-                (isEmpty(_years) || isEmpty(_years[0]) && isEmpty(_years[1]) || (c.year >= _years[0] && isEmpty(_years[1])) || (c.year <= _years[1] && isEmpty(_years[0])) || c.year >= _years[0] && c.year <= _years[1])
+                (isEmpty(_years) || isEmpty(_years[0]) && isEmpty(_years[1]) || (c.vehicle_year >= _years[0] && isEmpty(_years[1])) || (c.vehicle_year <= _years[1] && isEmpty(_years[0])) || c.vehicle_year >= _years[0] && c.vehicle_year <= _years[1])
                 &&
-                (isEmpty(_engineVolumeRng) || isEmpty(_engineVolumeRng[0]) && isEmpty(_engineVolumeRng[1]) || (c.engineVolume >= _engineVolumeRng[0] && isEmpty(_engineVolumeRng[1])) || (c.engineVolume <= _engineVolumeRng[1] && isEmpty(_engineVolumeRng[0])) || c.engineVolume >= _engineVolumeRng[0] && c.engineVolume <= _engineVolumeRng[1])
+                (isEmpty(_engineVolumeRng) || isEmpty(_engineVolumeRng[0]) && isEmpty(_engineVolumeRng[1]) || (c.engine_volume >= _engineVolumeRng[0] && isEmpty(_engineVolumeRng[1])) || (c.engine_volume <= _engineVolumeRng[1] && isEmpty(_engineVolumeRng[0])) || c.engine_volume >= _engineVolumeRng[0] && c.engine_volume <= _engineVolumeRng[1])
                 &&
-                (isEmpty(_transmissions) || _transmissions.find(x => x == c.transmission))
+                (isEmpty(_transmissions) || _transmissions.find(x => x == c.TransmissionTypes.id))
                 &&
-                (isEmpty(_fuels) || _fuels.find(x => x == c.fuelType))
+                (isEmpty(_fuels) || _fuels.find(x => x == c.FuelTypes.id))
                 &&
-                (isEmpty(_wheelDriveTypes) || _wheelDriveTypes.find(x => x == c.wheelDrive))
-
+                (isEmpty(_wheelDriveTypes) || _wheelDriveTypes.find(x => x == c.DriveTypes.id))
 
         }));
     }
@@ -346,16 +361,16 @@ export default function CarList() {
                 <div className="wrapper">
                     <div className="row navigation"><span>Домашня сторінка</span> / Вживані </div>
                     <div className="row types" id='vTypeList1'>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='lehkovy'>Легкові</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='moto'>Мото</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='vantazhny'>Вантажівки</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='spetz'>Спецтехніка</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='1'>Легкові</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='2'>Мото</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='3'>Вантажівки</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='4'>Спецтехніка</div>
                     </div>
                     <div className="row types" id='vTypeList2'>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='silhos'>Сільгосптехніка</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='avtobus'>Автобуси</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='prychepy'>Причепи</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='avtobudynky'>Автобудинки</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='5'>Сільгосптехніка</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='6'>Автобуси</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='7'>Причепи</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='8'>Автобудинки</div>
                     </div>
                 </div>
                 <div className="row filtersAndResults">

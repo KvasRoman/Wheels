@@ -16,7 +16,25 @@ import { Link } from 'react-router-dom'
 
 export default function CarCard(props) {
     function softTimeDiff(v) {
-       
+        function calculateTimePassed(start, end) {
+            const millisecondsPerMinute = 60000; // 1000 мілісекунд * 60 секунд
+            const millisecondsPerHour = 3600000; // 1000 мілісекунд * 60 секунд * 60 хвилин
+            const millisecondsPerDay = 86400000; // 1000 мілісекунд * 60 секунд * 60 хвилин * 24 години
+          
+            const timeDifference = Math.abs(end - start);
+          
+            if (timeDifference >= millisecondsPerDay) {
+              const daysPassed = Math.floor(timeDifference / millisecondsPerDay);
+              return `${daysPassed} днів`;
+            } else if (timeDifference >= millisecondsPerHour) {
+              const hoursPassed = Math.floor(timeDifference / millisecondsPerHour);
+              return `${hoursPassed} годин`;
+            } else {
+              const minutesPassed = Math.floor(timeDifference / millisecondsPerMinute);
+              return `${minutesPassed} хвилин`;
+            }
+          }
+          return calculateTimePassed(v, new Date().getDate());
         
     }
     function numberWithSpaces(x) {
@@ -61,7 +79,7 @@ export default function CarCard(props) {
                             </div>
                             <div className="footer">
                                 <div className="published">
-                                    <img src={Clock} alt="" />{props.car.created_at} хвилин тому
+                                    <img src={Clock} alt="" />{props.car.created_at} {softTimeDiff(props.car.created_at)} тому
                                 </div>
                                 <div className="actions">
                                     <div className="compare"><img src={Scales} alt="" /></div>
