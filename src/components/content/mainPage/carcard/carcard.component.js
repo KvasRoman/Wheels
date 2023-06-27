@@ -15,58 +15,61 @@ import { AdaptFuelType, AdaptRegion, AdaptTransmission } from '../../../../model
 import { Link } from 'react-router-dom'
 
 export default function CarCard(props) {
-    
+    function softTimeDiff(v) {
+       
+        
+    }
     function numberWithSpaces(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
     const hasCarData = props.car != null;
     function Template() {
         if (hasCarData) {
-            
-            return (
-                <Link>
-                <div className="card">
-                    <div className="budge"><span>Перевірений VIN-код</span><div className='corner'><div></div></div></div>
-                    <div className="like"><img src={Like} alt="" /></div>
-                    <div className="dislike"><img src={Dislike} alt="" /></div>
-                    <div className="image">
-                        <img alt="" />
-                    </div>
-                    <div className="wrapper">
 
-                        <div className="info">
-                            <div className="title">{props.car.brand} {props.car.model} {props.car.year} </div>
-                            <div className="price"><span className='usd'>{numberWithSpaces(props.car.price)} $</span><span className='uah'>~ {numberWithSpaces(props.car.price*40.3)} грн.</span></div>
-                            <div className="stats">
-                                <div className="col">
-                                    <div className="stat">
-                                        <img src={DashBoard} alt="" /> {props.car.drivenDistance / 1000} тис. км
-                                    </div>
-                                    <div className="stat">
-                                        <img src={Location} alt="" /> {AdaptRegion(props.car.region)}
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="stat">
-                                        <img src={FuelTank} alt="" />{AdaptFuelType(props.car.fuelType)}
-                                    </div>
-                                    <div className="stat">
-                                        <img src={Steering} alt="" />{AdaptTransmission(props.car.transmission)}
-                                    </div>
-                                </div>
-                            </div>
+            return (
+                <Link to={`/CarCard/${props.car.id}`}>
+                    <div className="card">
+                        <div className="budge"><span>Перевірений VIN-код</span><div className='corner'><div></div></div></div>
+                        <div className="like"><img src={Like} alt="" /></div>
+                        <div className="dislike"><img src={Dislike} alt="" /></div>
+                        <div className="image">
+                            <img alt="" src={ props.car.AnnouncementsPhotos[0]? props.car.AnnouncementsPhotos[0].url: ''}/>
                         </div>
-                        <div className="footer">
-                            <div className="published">
-                                <img src={Clock} alt="" />17 хвилин тому
+                        <div className="wrapper">
+
+                            <div className="info">
+                                <div className="title">{props.car.Brands.name} {props.car.CarModels.name} {props.car.vehicle_year} </div>
+                                <div className="price"><span className='usd'>{numberWithSpaces(props.car.price_us)} $</span><span className='uah'>~ {numberWithSpaces(props.car.price_us * 40.3)} грн.</span></div>
+                                <div className="stats">
+                                    <div className="col">
+                                        <div className="stat">
+                                            <img src={DashBoard} alt="" /> {props.car.mileage / 1000} тис. км
+                                        </div>
+                                        <div className="stat">
+                                            <img src={Location} alt="" /> {props.car.States.name}
+                                        </div>
+                                    </div>
+                                    <div className="col">
+                                        <div className="stat">
+                                            <img src={FuelTank} alt="" />{props.car.FuelTypes.name}
+                                        </div>
+                                        <div className="stat">
+                                            <img src={Steering} alt="" />{props.car.TransmissionTypes.name}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="actions">
-                                <div className="compare"><img src={Scales} alt="" /></div>
-                                <div className="favorite"><img src={Heart} alt="" /></div>
+                            <div className="footer">
+                                <div className="published">
+                                    <img src={Clock} alt="" />{props.car.created_at} хвилин тому
+                                </div>
+                                <div className="actions">
+                                    <div className="compare"><img src={Scales} alt="" /></div>
+                                    <div className="favorite"><img src={Heart} alt="" /></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </Link>
             )
         }

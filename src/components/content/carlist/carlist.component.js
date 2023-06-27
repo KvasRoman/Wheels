@@ -28,6 +28,7 @@ import { useState, useEffect  } from 'react';
 import Link from 'react-dom'
 import { carService } from '../../../core/api/supabase/services/cars';
 import { selectService } from '../../../core/api/supabase/services/selects';
+import { announcementsService } from '../../../core/api/supabase/services/announcements';
 
 //
 
@@ -101,6 +102,9 @@ function isEmpty(v) {
 export default function CarList() {
     const [spareWheel, setSpareWheel] = useState([]);
     const [conditioners, setConditioners] = useState([]);
+
+
+
     useEffect(
         () => { selectService.getAirConditioners().then(v => setConditioners(v.map(Adapt))); },
         []);
@@ -228,6 +232,18 @@ export default function CarList() {
     useEffect(
         () => { selectService.getVehicleTypes().then(v => setVehicleType(v.map(Adapt))); },
         []);
+    
+         
+    const [announcements , setAnnouncements] = useState([]);
+    useEffect(
+        () => { announcementsService.getAnnouncments().then(v => {setAnnouncements(v); setAnnounce(v); console.log(v)})},
+        []);
+    
+    const [annouces , setAnnounce] = useState([]);
+    useEffect(
+        () => { setAnnounce(announcements)},
+        []);
+
 
     carService.getCars().then(v => console.log(`hello ${v}`))
     selectService.getAirConditioners().then(v => console.log(v))
@@ -323,7 +339,6 @@ export default function CarList() {
         }
         e.target.classList.add("active");
     }
-    console.log(FDBCars[0])
 
     return (
         <>
@@ -509,7 +524,7 @@ export default function CarList() {
                         </div> */}
                         <div className="carCollection">
                             {
-                                carList.map((c) => <CarCard car={c} />)
+                                annouces.map((c) => <CarCard car={c} />)
                             }
                         </div>
                     </div>

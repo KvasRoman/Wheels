@@ -5,7 +5,7 @@ header {
 
 }
 
-.Login {
+.LoginNSignUp {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -177,6 +177,98 @@ header {
         }
     }
 
+    .button {
+        //styleName: buttons;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.06em;
+        text-align: center;
+
+        width: 505px;
+        height: 54px;
+        background-color: #D38455;
+    }
+}
+
+.LogOut {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 715px;
+    padding: 50px 0px 50px 0;
+    background-color: #F9F3EE;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+        //styleName: h3;
+        font-family: Roboto;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 28px;
+        letter-spacing: 0em;
+        text-align: left;
+
+    }
+
+    .button {
+        margin-top: 40px;
+        //styleName: buttons;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.06em;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 505px;
+        height: 54px;
+        background-color: #D38455;
+        color: #F9F3EE;
+        border-radius: 8px;
+    }
+}
+
+.Error {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 715px;
+    padding: 50px 40px 50px 40px;
+    background-color: #F9F3EE;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .title{
+        font-family: Roboto;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 28px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #CF625B;
+    }
+    .msg {
+        margin-top: 15px;
+        font-family: Roboto;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 28px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #CF625B;
+    }
 }
 
 nav {
