@@ -48,20 +48,34 @@ import CardSlider from './cardSlider/cardslider.component'
 
 
 //-----
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import { selectService } from '../../../core/api/supabase/services/selects.js'
 
 import './main.content.component.scss'
 import zIndex from '@mui/material/styles/zIndex'
-export default function Main(props) {
+import { years as FDBYears, years } from '../../../models/fakeDB'
+const carYearsOfCreation = FDBYears.map(ft => {
+  return { value: ft, title: ft }
+})
+function Adapt(v) {
+  return { value: v.id, title: v.name }
+}
 
+export default function Main(props) {
+    const [modelTypes, setModelType] = useState();
+    const [brandTypes, setBrandType] = useState();
+    const [cities, setCity] = useState();
+    const [regions, setRegion] = useState();
   useEffect(() => {
     console.log('here')
     // selectService.getAirConditioners()
     // selectService.getBodyTypes()
     // selectService.getBrands()
     // selectService.getCarModels()
-    selectService.getCities()
+    selectService.getCities().then(v => {setCity(v.map(Adapt))});
+    selectService.getCarModels().then(v => setModelType(v.map(Adapt)));
+    selectService.getBrands().then(v => setBrandType(v.map(Adapt)));
+    selectService.getStates().then(v => setRegion(v.map(Adapt))); 
     // selectService.getCities(13)
     // selectService.getColors()
     // selectService.getCountries()
@@ -96,6 +110,17 @@ export default function Main(props) {
     }
     e.target.classList.add('active');
   }
+  function changeCarType(e){
+    if(e.classList.classList.contains('active')){
+      e.target.classList.remove('active');
+      return;
+    }
+    const options = document.getElementsByClassName('carTypeSelect');
+    for (let option of options) {
+      option.target.classList.remove('active');
+    }
+    e.target.classList.add('active');
+  }
   return (
     <div className="content">
       <span id='hook'></span>
@@ -111,58 +136,58 @@ export default function Main(props) {
       <div className='searchBar'>
         <div className='folders'>
           <ul>
-            <li onClick={changeFolder}>Всі</li>
-            <li onClick={changeFolder}>Новий</li>
-            <li onClick={changeFolder}>Вживаний</li>
+            <li onClick={changeFolder} className='active techStateOption clickable'>Всі</li>
+            <li onClick={changeFolder} className='techStateOption clickable'>Новий</li>
+            <li onClick={changeFolder} className='techStateOption clickable'>Вживаний</li>
           </ul>
         </div>
         <div className="form">
           <div className="chooseType">
             <ul>
               <li>
-                <div className="wrapper">
+                <div className="wrapper carTypeSelect clickable" >
                   <img src={Car} alt="" />
                   <p>Легкові</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper">
+                <div className="wrapper carTypeSelect clickable" >
                   <img src={Truck} alt="" />
                   <p>Вантажівки</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper">
+                <div className="wrapper carTypeSelect clickable" >
                   <img src={Motorbike} alt="" />
                   <p>Мото</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper">
+                <div className="wrapper carTypeSelect clickable" >
                   <img src={Backhoe} alt="" />
                   <p>Сільгосптехніка</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper">
+                <div className="wrapper carTypeSelect clickable" >
                   <img src={Minibus} alt="" />
                   <p>Автобуси</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper">
+                <div className="wrapper carTypeSelect clickable" >
                   <img src={Truck2} alt="" />
                   <p>Спецтехніка</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper">
+                <div className="wrapper carTypeSelect clickable" >
                   <img src={Caravan} alt="" />
                   <p>Причепи</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper">
+                <div className="wrapper carTypeSelect clickable" >
                   <img src={Camper} alt="" />
                   <p>Автобудинки</p>
                 </div>
@@ -172,10 +197,10 @@ export default function Main(props) {
           </div>
           <div className="formElements">
             <div className="leftSide">
-              <DropDown />
-              <DropDown />
-              <DropDown />
-              <div className="extendedSearch">
+              <DropDown items={brandTypes} defaultTitle={'Оберіть марку'}/>
+              <DropDown items={modelTypes} defaultTitle={'Оберіть модель'}/>
+              <DropDown items={regions} defaultTitle={'Оберіть регіон'}/>
+              <div className="extendedSearch clickable">
                 <img src={BlueSearchIcon} alt="" /><span>Розширений пошук</span>
               </div>
             </div>
@@ -183,18 +208,18 @@ export default function Main(props) {
               <div className="ageRange">
                 <p>Роки</p>
                 <div className="row">
-                  <DropDown /> <em>до</em> <DropDown />
+                  <DropDown items={carYearsOfCreation} defaultTitle={'Будь-який'}/> <em>до</em> <DropDown items={carYearsOfCreation} defaultTitle={'Будь-який'}/>
                 </div>
 
               </div>
               <div className="priceSlider">
                 <p>Ціна</p>
-                <ValueSlider width="610px"/>
+                <ValueSlider width="610px" min={5000} max={100000}/>
                 <div className="sliderRange">
-                  <span>6000$</span><span>12000$</span>
+                  <span>5000$</span><span>100000$</span>
                 </div>
               </div>
-              <div className='searchButton'>
+              <div className='searchButton clickable orangeBGButton'>
                 <img src={SearchIcon} alt="" /><span>Шукати</span>
               </div>
             </div>
@@ -320,7 +345,7 @@ export default function Main(props) {
           <p>Часті запитання</p>
           <div className="lists">
             <div className="folders" id='FnQFolder'>
-              <div onClick={changeFnQFolder}>Купівля</div>
+              <div onClick={changeFnQFolder} className='active'>Купівля</div>
               <div onClick={changeFnQFolder}>Продаж</div>
               <div onClick={changeFnQFolder}>Фінанси </div>
             </div>

@@ -7,6 +7,7 @@ import {Routes, Route} from 'react-router-dom'
 import CarList from './components/content/carlist/carlist.component';
 import CarCardPage from './components/content/carCardPage/carCardPage.component';
 import SellVehiclePage from './components/content/sellVehiclePage/sellVehiclePage.component';
+import CarLList from './components/content/carlist/carlist';
 function App() {
   return (
     

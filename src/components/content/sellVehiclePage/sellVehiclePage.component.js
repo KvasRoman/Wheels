@@ -74,7 +74,7 @@ const currencies = FDBCurrencies.map(ft => {
     return { value: ft, title: ft }
 })
 const carAccidents = FDBCarAccidents.map(ft => {
-    return { value: ft, title: AdaptCarAccidents(ft) }
+    return { value: ft == 'was in car accident', title: AdaptCarAccidents(ft) }
 })
 
 
@@ -360,8 +360,50 @@ export default function SellVehiclePage() {
             fuel_type: formModel.fuelType,
             transmission_type: formModel.transmission,
             drive_type: formModel.wheelDrive,
-            engine_volume: formModel.engineVolume
+            engine_volume: formModel.engineVolume,
+
+            conditioner: formModel.conditioners,
+            electric_windows: formModel.windowLifter,
+            interior_material: formModel.salonMaterial,
+            interior_color: formModel.salonColor,
+            power_steering: formModel.powerSteeringAmplifie,
+            steering_wheel_adjust: formModel.steeringAdjustment,
+            spare_wheel: formModel.spareWheel,
+            headlights: formModel.lightType,
+            seat_adjust: formModel.seatAdjustments,
+            seat_heating: formModel.seatsHeated,
+            seat_ventilation: formModel.seatVentilation,
         }
+        function Valid(){
+            function isNotNull(a){
+                return a != null || a != undefined
+            }
+            if(
+                isNotNull(pepData.vehicle_type) &&
+                isNotNull(pepData.brand) &&
+                isNotNull(pepData.model) &&
+                isNotNull(pepData.vehicle_type) &&
+                isNotNull(pepData.mileage) &&
+                isNotNull(pepData.description) &&
+                isNotNull(pepData.mileage_unit) &&
+                isNotNull(pepData.body_type) &&
+                isNotNull(pepData.body_type) &&
+                isNotNull(pepData.state) &&
+                isNotNull(pepData.city) &&
+                isNotNull(pepData.color) &&
+                isNotNull(pepData.shipped_from) &&
+                isNotNull(pepData.technical_state) &&
+                isNotNull(pepData.paint_coating) &&
+                isNotNull(pepData.price_us) &&
+                isNotNull(pepData.fuel_type) &&
+                isNotNull(pepData.transmission_type) &&
+                isNotNull(pepData.drive_type) &&
+                isNotNull(pepData.engine_volume)
+            )
+            return true;
+            else return false;
+        }
+        
         // AdaptCar(CreateCar(
         //     formModel.vehicleType,
         //     formModel.region,
@@ -388,6 +430,11 @@ export default function SellVehiclePage() {
         //     'some owner',
         //     formModel.city
         // ));
+        if(!Valid()){
+            alert("Було пропущено деякі обов'язкові поля");
+            return;
+        }
+
         console.log(pepData);
         console.log(files)
         await announcementsService.createAnnouncment(
@@ -652,7 +699,7 @@ export default function SellVehiclePage() {
                                     <div className="title">
                                         Кондиціонер
                                     </div>
-                                    <DropDown onChange={e => { onFormValueChange('conditioner', e) }} items={conditioners} defaultTitle={'Оберіть'} />
+                                    <DropDown onChange={e => { onFormValueChange('conditioners', e) }} items={conditioners} defaultTitle={'Оберіть'} />
                                 </div>
                                 <div className="titleAside">
                                     <div className="title">
@@ -700,7 +747,7 @@ export default function SellVehiclePage() {
                                     <div className="title">
                                         Регулювання сидінь
                                     </div>
-                                    <DropDown onChange={e => { onFormValueChange('seatAdjustment', e) }} items={seatAdjustments} defaultTitle={'Оберіть'} />
+                                    <DropDown onChange={e => { onFormValueChange('seatAdjustments', e) }} items={seatAdjustments} defaultTitle={'Оберіть'} />
                                 </div>
                                 <div className="titleAside">
                                     <div className="title">

@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { Link } from "react-router-dom";
 export default function MyHeader(props) {
 
 
@@ -109,11 +110,11 @@ export default function MyHeader(props) {
       </Modal>
       <nav>
         <ul className="navList">
-          <img src={logo} alt="Logo" />
-          <li className="navItem"><a href="#" className="navLink">Купити</a></li>
-          <li className="navItem"><a href="#" className="navLink">Продати</a></li>
-          <li className="navItem"><a href="#" className="navLink">Фінанси</a></li>
-          <li className="navItem"><a href="#" className="navLink">ТОП-100</a></li>
+          <Link to={'/'}><img src={logo} alt="Logo" /></Link>
+          <li className="navItem"><Link className="navLink transparentLink" to={'/Search'}>Купити</Link></li>
+          <li className="navItem"><Link className="navLink transparentLink" to={'/SellVehicle'}>Продати</Link></li>
+          <li className="navItem"><Link className="navLink transparentLink">Фінанси</Link></li>
+          <li className="navItem"><Link className="navLink transparentLink">ТОП-100</Link></li>
         </ul>
         <div className="headerRightSide">
           <ul className="userNotificationList">
