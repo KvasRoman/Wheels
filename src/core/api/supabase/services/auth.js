@@ -2,10 +2,14 @@ import { supabase } from ".."
 
 class AuthService {
   // when signing-up user, pass object with email, password, name, surname, phone
-  async registerWithEmailAndPassword ({ email, password, avatarFile, ...rest }) {
-    const path = `${avatarFile.name}_${new Date().toISOString()}`
-    await supabase.storage.from('announcments').upload(path, avatarFile)
-    const res = supabase.storage.from('announcments').getPublicUrl(path)
+  async registerWithEmailAndPassword ({ email, password, avatar_file, ...rest }) {
+    let res
+
+    if(avatar_file) {
+      const path = `${avatar_file.name}_${new Date().toISOString()}`
+      await supabase.storage.from('announcments').upload(path, avatar_file)
+      res = supabase.storage.from('announcments').getPublicUrl(path)
+    }
 
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -13,7 +17,7 @@ class AuthService {
       options: {
         data: {
           ...rest,
-          avatar_url: res.data.publicUrl
+          avatar_url: res.data?.publicUrl || ''
         }
       }
     })
@@ -51,6 +55,16 @@ class AuthService {
     }
 
     return user
+  }
+
+  async getUsers() {
+    const { data, error } = await supabase.from('users').select()
+
+    if(error) {
+      throw error
+    }
+
+    return data
   }
 }
 
