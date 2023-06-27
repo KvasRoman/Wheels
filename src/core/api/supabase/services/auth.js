@@ -17,7 +17,7 @@ class AuthService {
       options: {
         data: {
           ...rest,
-          avatar_url: res.data?.publicUrl || ''
+          avatar_url: res?.data?.publicUrl || ''
         }
       }
     })
