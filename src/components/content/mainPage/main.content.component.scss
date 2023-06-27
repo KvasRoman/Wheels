@@ -180,7 +180,7 @@
                     color: #395F8D;
                     border: 1px solid #395F8D;
                 }
-                
+
             }
 
             .rightSide {
@@ -189,11 +189,10 @@
 
                 .MuiInputBase-root {
                     width: 260px;
+
                 }
 
-                .MuiFormControl-root {
-                    padding: 0 0 0 0;
-                }
+                .MuiFormControl-root {}
 
                 .ageRange {
                     height: 88px;
@@ -705,11 +704,11 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 25px;
+
     .button {
-        a{
-            
         text-decoration: none;
-        div{
+
+        div {
             color: #D38455;
             //styleName: h4;
             font-family: Roboto;
@@ -725,8 +724,8 @@
             justify-content: center;
             align-items: center;
         }
-        }
-        
+
+
     }
 }
 

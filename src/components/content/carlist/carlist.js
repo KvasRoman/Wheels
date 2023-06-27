@@ -1,13 +1,21 @@
-import { Slider } from '@mui/material';
+// import { Slider } from '@mui/material';
+// import DropDown from '../mainPage/dropdown/dropdown.component';
+// 
+// import ValueSlider from '../mainPage/slider/slider.component';
+// 
+// 
+// 
+// import CloseLine from './closeLine.svg'
+// import CarCard from '../mainPage/carcard/carcard.component';
+// import CreateCar from '../../../models/car.model';
 import DropDown from '../mainPage/dropdown/dropdown.component';
 import './carlist.component.scss'
-import ValueSlider from '../mainPage/slider/slider.component';
-import SearchIcon from '../mainPage/svgs/search.svg'
 import BluePlus from './bluePlus.svg'
+import ValueSlider from '../mainPage/slider/slider.component';
 import CrossedFilter from './crossedFilter.svg'
-import CloseLine from './closeLine.svg'
+import SearchIcon from '../mainPage/svgs/search.svg'
 import CarCard from '../mainPage/carcard/carcard.component';
-import CreateCar from '../../../models/car.model';
+
 import {
     AdaptFuelType, AdaptRegion,
     cars as FDBCars,
@@ -24,17 +32,12 @@ import {
     years,
     engineVolumes as FDBEngineVolumes
 } from '../../../models/fakeDB';
-import { useState, useEffect  } from 'react';
+import { useState } from 'react';
 import Link from 'react-dom'
-import { carService } from '../../../core/api/supabase/services/cars';
-import { selectService } from '../../../core/api/supabase/services/selects';
 
 //
 
 //
-function Adapt(v) {
-    return { value: v.id, title: v.name }
-}
 
 
 // 
@@ -47,28 +50,28 @@ function Adapt(v) {
 // 
 //     
 //
-// const fuelTypes = FDBFuelTypes.map(ft => {
-//     return { value: ft, title: AdaptFuelType(ft) }
-// })
-// const regions = FDBRegions.map(ft => {
-//     return { value: ft, title: AdaptRegion(ft) }
-// })
-// const bodyTypes = FDBBodyTypes.map(ft => {
-//     return { value: ft, title: ft }
-// })
-// const brandTypes = FDBBrandTypes.map(ft => {
-//     return { value: ft, title: ft }
-// })
-// const modelTypes = FDBModelTypes.map(ft => {
-//     return { value: ft, title: ft }
-// })
+const fuelTypes = FDBFuelTypes.map(ft => {
+    return { value: ft, title: AdaptFuelType(ft) }
+})
+const regions = FDBRegions.map(ft => {
+    return { value: ft, title: AdaptRegion(ft) }
+})
+const bodyTypes = FDBBodyTypes.map(ft => {
+    return { value: ft, title: ft }
+})
+const brandTypes = FDBBrandTypes.map(ft => {
+    return { value: ft, title: ft }
+})
+const modelTypes = FDBModelTypes.map(ft => {
+    return { value: ft, title: ft }
+})
 
-// const transmissionTypes = FDBTransmissionTypes.map(ft => {
-//     return { value: ft, title: AdaptTransmission(ft) }
-// })
-// const wheelDriveTypes = FDBWheelDriveTypes.map(ft => {
-//     return { value: ft, title: AdaptWheelDrive(ft) }
-// })
+const transmissionTypes = FDBTransmissionTypes.map(ft => {
+    return { value: ft, title: AdaptTransmission(ft) }
+})
+const wheelDriveTypes = FDBWheelDriveTypes.map(ft => {
+    return { value: ft, title: AdaptWheelDrive(ft) }
+})
 const carYearsOfCreation = FDBYears.map(ft => {
     return { value: ft, title: ft }
 })
@@ -98,139 +101,9 @@ function isEmpty(v) {
     return (v == null || v == undefined || v == '')
 }
 
-export default function CarList() {
-    const [spareWheel, setSpareWheel] = useState([]);
-    const [conditioners, setConditioners] = useState([]);
-    useEffect(
-        () => { selectService.getAirConditioners().then(v => setConditioners(v.map(Adapt))); },
-        []);
-
-    useEffect(
-        () => { selectService.getSpareWheels().then(v => setSpareWheel(v.map(Adapt))); },
-        []);
-
-    const [fuelTypes, setFuel] = useState([]);
-    useEffect(
-        () => { selectService.getFuelTypes().then(v => setFuel(v.map(Adapt))); },
-        []);
-
-    const [bodyTypes, setBodyType] = useState([]);
-    useEffect(
-        () => { selectService.getBodyTypes().then(v => setBodyType(v.map(Adapt))); },
-        []);
+export default function CarLList() {
 
 
-    const [brandTypes, setBrandType] = useState([]);
-    useEffect(
-        () => { selectService.getBrands().then(v => setBrandType(v.map(Adapt))); },
-        []);
-
-    const [modelTypes, setModelType] = useState([]);
-    useEffect(
-        () => { selectService.getCarModels().then(v => setModelType(v.map(Adapt))); },
-        []);
-
-    const [transmissionTypes, setTransmissionType] = useState([]);
-    useEffect(
-        () => { selectService.getTransmissionTypes().then(v => setTransmissionType(v.map(Adapt))); },
-        []);
-    const [wheelDriveTypes, setWheelDriveType] = useState([]);
-    useEffect(
-        () => { selectService.getDriveTypes().then(v => setWheelDriveType(v.map(Adapt))); },
-        []);
-
-    const [regions, setRegion] = useState([]);
-    useEffect(
-        () => { selectService.getStates().then(v => setRegion(v.map(Adapt))); },
-        []);
-
-    const [cities, setCity] = useState([]);
-    useEffect(
-        () => {
-            selectService.getCities().then(v => {
-                setCity(v.map(Adapt))
-            });
-        },
-        []);
-
-    const [colors, setСolor] = useState([]);
-    useEffect(
-        () => { selectService.getColors().then(v => setСolor(v.map(Adapt))); },
-        []);
-    const [coutnries, setCoutnry] = useState([]);
-
-    useEffect(
-        () => { selectService.getCountries().then(v => setCoutnry(v.map(Adapt))); },
-        []);
-
-
-    const [techStates, setTechState] = useState([]);
-
-    useEffect(
-        () => { selectService.getTechnicalStates().then(v => setTechState(v.map(Adapt))); },
-        []);
-    const [lightTypes, setLightType] = useState([]);
-
-    useEffect(
-        () => { selectService.getHeadlights().then(v => setLightType(v.map(Adapt))); },
-        []);
-
-    const [salonMaterials, setSalonMaterials] = useState([]);
-
-    useEffect(
-        () => { selectService.getInteriorMaterials().then(v => setSalonMaterials(v.map(Adapt))); },
-        []);
-    const [windowLifters, setWindowLifters] = useState([]);
-
-    useEffect(
-        () => { selectService.getElectricWindows().then(v => setWindowLifters(v.map(Adapt))); },
-        []);
-
-    const [steeringAdjustment, setSteeringAdjustment] = useState([]);
-
-    useEffect(
-        () => { selectService.getSteeringWheelAdjustments().then(v => setSteeringAdjustment(v.map(Adapt))); },
-        []);
-    const [seatAdjustments, setSeatAdjustments] = useState([]);
-
-    useEffect(
-        () => { selectService.getSeatAdjustments().then(v => setSeatAdjustments(v.map(Adapt))); },
-        []);
-
-    const [seatsHeated, setSeatsHeated] = useState([]);
-
-    useEffect(
-        () => { selectService.getSeatHeatings().then(v => setSeatsHeated(v.map(Adapt))); },
-        []);
-
-    const [seatVentilation, setSeatVentilation] = useState([]);
-
-    useEffect(
-        () => { selectService.getSeatVentilations().then(v => setSeatVentilation(v.map(Adapt))); },
-        []);
-    const [varnishCoatings, setVarnishCoating] = useState([]);
-
-    useEffect(
-        () => { selectService.getPaintCoatings().then(v => setVarnishCoating(v.map(Adapt))); },
-        []);
-    const [salonColors, setSalonColor] = useState([]);
-
-    useEffect(
-        () => { selectService.getColors().then(v => setSalonColor(v.map(Adapt))); },
-        []);
-    const [powerSteeringAmplifies, setPowerSteeringAmplify] = useState([]);
-
-    useEffect(
-        () => { selectService.getPowerSteerings().then(v => setPowerSteeringAmplify(v.map(Adapt))); },
-        []);
-    const [vehicleTypes, setVehicleType] = useState([]);
-
-    useEffect(
-        () => { selectService.getVehicleTypes().then(v => setVehicleType(v.map(Adapt))); },
-        []);
-
-    carService.getCars().then(v => console.log(`hello ${v}`))
-    selectService.getAirConditioners().then(v => console.log(v))
     function Search(e) {
         let searchText = document.getElementById('_searchBar').value;
 
@@ -331,25 +204,25 @@ export default function CarList() {
                 <div className="wrapper">
                     <div className="row navigation"><span>Домашня сторінка</span> / Вживані </div>
                     <div className="row types" id='vTypeList1'>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='lehkovy'>Легкові</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='moto'>Мото</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='vantazhny'>Вантажівки</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='spetz'>Спецтехніка</div>
+                        <div className="button" onClick={changeActiveVType} value='lehkovy'>Легкові</div>
+                        <div className="button" onClick={changeActiveVType} value='moto'>Мото</div>
+                        <div className="button" onClick={changeActiveVType} value='vantazhny'>Вантажівки</div>
+                        <div className="button" onClick={changeActiveVType} value='spetz'>Спецтехніка</div>
                     </div>
                     <div className="row types" id='vTypeList2'>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='silhos'>Сільгосптехніка</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='avtobus'>Автобуси</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='prychepy'>Причепи</div>
-                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='avtobudynky'>Автобудинки</div>
+                        <div className="button" onClick={changeActiveVType} value='silhos'>Сільгосптехніка</div>
+                        <div className="button" onClick={changeActiveVType} value='avtobus'>Автобуси</div>
+                        <div className="button" onClick={changeActiveVType} value='prychepy'>Причепи</div>
+                        <div className="button" onClick={changeActiveVType} value='avtobudynky'>Автобудинки</div>
                     </div>
                 </div>
                 <div className="row filtersAndResults">
                     <div className="filters">
                         <p className='title'>Фільтри</p>
                         <div className="carWear" id='carWear'>
-                            <div className="button blueTransparentButton clickable" onClick={changeActiveCarWear} value='any'>Всі</div>
-                            <div className="button blueTransparentButton clickable" onClick={changeActiveCarWear} value='old'>Вживані</div>
-                            <div className="button blueTransparentButton clickable" onClick={changeActiveCarWear} value='new'>Нові</div>
+                            <div className="button" onClick={changeActiveCarWear} value='any'>Всі</div>
+                            <div className="button" onClick={changeActiveCarWear} value='old'>Вживані</div>
+                            <div className="button" onClick={changeActiveCarWear} value='new'>Нові</div>
                         </div>
                         <div className="region dropdown">
                             <p>Регіон</p>
@@ -358,7 +231,7 @@ export default function CarList() {
                         <div className="carBody dropdown">
                             <p>Тип кузова</p>
                             <DropDown items={bodyTypes} onChange={(v) => _bodyType = v} />
-                        </div>  
+                        </div>
                         <div className="Price slider">
                             <p>Ціна</p>
                             <ValueSlider
@@ -413,13 +286,11 @@ export default function CarList() {
                             <p>Коробка передач</p>
                             <div className="box">
                                 {
-                                    transmissionTypes != undefined?
                                     transmissionTypes.map((f, index) =>
                                         <div>
                                             <input type='checkbox' name={'TM'} value={f.value} id={'TM' + index} />
                                             <label htmlFor={'TM' + index}>{f.title}</label>
                                         </div>)
-                                        :<></>
                                 }
 
 
@@ -430,13 +301,11 @@ export default function CarList() {
 
                             <div className="box">
                                 {
-                                    fuelTypes != undefined?
                                     fuelTypes.map((f, index) =>
                                         <div>
                                             <input type='checkbox' name={'FT'} value={f.value} id={'FT' + index} />
                                             <label htmlFor={'FT' + index}>{f.title}</label>
                                         </div>)
-                                        :<></>
                                 }
                                 <div>
                                     <input type='checkbox' name='thing8' value='valuable' id="thing8" />
@@ -448,13 +317,11 @@ export default function CarList() {
                             <p>Тип приводу</p>
                             <div className="box">
                                 {
-                                    fuelTypes != undefined?
                                     wheelDriveTypes.map((f, index) =>
                                         <div>
                                             <input type='checkbox' name={'WD'} value={f.value} id={'WD' + index} />
                                             <label htmlFor={'WD' + index}>{f.title}</label>
-                                        </div>):
-                                        <></>
+                                        </div>)
                                 }
                             </div>
                         </div>
@@ -509,7 +376,7 @@ export default function CarList() {
                         </div> */}
                         <div className="carCollection">
                             {
-                                carList.map((c) => <CarCard car={c} />)
+                                carList.map((c) => <CarCard car={c}/>)
                             }
                         </div>
                     </div>

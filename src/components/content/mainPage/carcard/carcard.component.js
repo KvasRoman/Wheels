@@ -12,9 +12,9 @@ import Location from './statSVGs/location.svg'
 import Steering from './statSVGs/steering.svg'
 import './carcard.component.scss';
 import { AdaptFuelType, AdaptRegion, AdaptTransmission } from '../../../../models/fakeDB'
+import { Link } from 'react-router-dom'
 
 export default function CarCard(props) {
-    
     
     function numberWithSpaces(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -23,14 +23,14 @@ export default function CarCard(props) {
     function Template() {
         if (hasCarData) {
             
-            const carImage = require(`./${props.car.images[0]}`)
             return (
+                <Link>
                 <div className="card">
                     <div className="budge"><span>Перевірений VIN-код</span><div className='corner'><div></div></div></div>
                     <div className="like"><img src={Like} alt="" /></div>
                     <div className="dislike"><img src={Dislike} alt="" /></div>
                     <div className="image">
-                        <img src={carImage} alt="" />
+                        <img alt="" />
                     </div>
                     <div className="wrapper">
 
@@ -58,7 +58,7 @@ export default function CarCard(props) {
                         </div>
                         <div className="footer">
                             <div className="published">
-                                <img src={Clock} alt="" /> {props.car.offerDelay} хвилин тому
+                                <img src={Clock} alt="" />17 хвилин тому
                             </div>
                             <div className="actions">
                                 <div className="compare"><img src={Scales} alt="" /></div>
@@ -67,6 +67,7 @@ export default function CarCard(props) {
                         </div>
                     </div>
                 </div>
+                </Link>
             )
         }
         else {
@@ -75,7 +76,7 @@ export default function CarCard(props) {
                 <div className="like"><img src={Like} alt="" /></div>
                 <div className="dislike"><img src={Dislike} alt="" /></div>
                 <div className="image">
-                    <img src={CarImage} alt="" />
+                    <img alt="" />
                 </div>
                 <div className="wrapper">
 
