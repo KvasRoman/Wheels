@@ -2,13 +2,18 @@ import { supabase } from ".."
 
 class AuthService {
   // when signing-up user, pass object with email, password, name, surname, phone
-  async registerWithEmailAndPassword ({ email, password, ...rest }) {
+  async registerWithEmailAndPassword ({ email, password, avatarFile, ...rest }) {
+    const path = `${avatarFile.name}_${new Date().toISOString()}`
+    await supabase.storage.from('announcments').upload(path, avatarFile)
+    const res = supabase.storage.from('announcments').getPublicUrl(path)
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
           ...rest,
+          avatar_url: res.data.publicUrl
         }
       }
     })
