@@ -66,13 +66,15 @@ body {
 }
 
 a{
-  text-decoration: none;
+  text-decoration: none !important;
   
 }
 .clickable{
+  text-decoration: none !important;
   &:hover{
     cursor: pointer;
   }
+  user-select: none;
 }
 .orangeBGButton{
   &:hover{
@@ -89,6 +91,17 @@ a{
   &:hover{
     background-color: #395F8D !important;
     color: #F9F3EE !important;
+  }
+  &:active{
+    background-color: #123055 !important;
+  }
+}
+.blueBGButton{
+  &:hover{
+    background-color: #6991C2 !important;
+  }
+  &:active{
+    background-color: #123055 !important;
   }
 }
 .transparentLink{

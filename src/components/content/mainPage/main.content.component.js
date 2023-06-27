@@ -54,6 +54,8 @@ import { selectService } from '../../../core/api/supabase/services/selects.js'
 import './main.content.component.scss'
 import zIndex from '@mui/material/styles/zIndex'
 import { years as FDBYears, years } from '../../../models/fakeDB'
+import { Link } from 'react-router-dom'
+import { func } from 'prop-types'
 const carYearsOfCreation = FDBYears.map(ft => {
   return { value: ft, title: ft }
 })
@@ -95,7 +97,9 @@ export default function Main(props) {
     // selectService.getTransmissionTypes()
     // selectService.getVehicleTypes()
   }, [])
-
+  function ScrollToTop(){
+    window.scrollTo(0, 0)
+  }
   function changeFolder(e) {
     let childernList = document.getElementsByClassName('folders')[0].children[0].children;
     for (let child of childernList) {
@@ -111,15 +115,19 @@ export default function Main(props) {
     e.target.classList.add('active');
   }
   function changeCarType(e){
-    if(e.classList.classList.contains('active')){
-      e.target.classList.remove('active');
-      return;
+    let target = e;
+    console.log(e);
+    if(e.target.parentNode.classList.contains('carTypeSelect')){
+      target = e.target.parentNode;
+    }else{
+      target = e.target;
     }
-    const options = document.getElementsByClassName('carTypeSelect');
-    for (let option of options) {
-      option.target.classList.remove('active');
+    const folders = document.getElementsByClassName('carTypeSelect');
+    for (let folder of folders) {
+      folder.classList.remove('active');
     }
-    e.target.classList.add('active');
+
+    target.classList.add('active');
   }
   return (
     <div className="content">
@@ -143,51 +151,51 @@ export default function Main(props) {
         </div>
         <div className="form">
           <div className="chooseType">
-            <ul>
+            <ul id='carTypes'>
               <li>
-                <div className="wrapper carTypeSelect clickable" >
+                <div className="wrapper carTypeSelect  clickable" onClick={changeCarType} >
                   <img src={Car} alt="" />
                   <p>Легкові</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper carTypeSelect clickable" >
+                <div className="wrapper carTypeSelect  clickable" onClick={changeCarType} >
                   <img src={Truck} alt="" />
                   <p>Вантажівки</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper carTypeSelect clickable" >
+                <div className="wrapper carTypeSelect  clickable" onClick={changeCarType} >
                   <img src={Motorbike} alt="" />
                   <p>Мото</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper carTypeSelect clickable" >
+                <div className="wrapper carTypeSelect  clickable" onClick={changeCarType} >
                   <img src={Backhoe} alt="" />
                   <p>Сільгосптехніка</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper carTypeSelect clickable" >
+                <div className="wrapper carTypeSelect  clickable" onClick={changeCarType} >
                   <img src={Minibus} alt="" />
                   <p>Автобуси</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper carTypeSelect clickable" >
+                <div className="wrapper carTypeSelect  clickable" onClick={changeCarType} >
                   <img src={Truck2} alt="" />
                   <p>Спецтехніка</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper carTypeSelect clickable" >
+                <div className="wrapper carTypeSelect  clickable" onClick={changeCarType} >
                   <img src={Caravan} alt="" />
                   <p>Причепи</p>
                 </div>
               </li>
               <li>
-                <div className="wrapper carTypeSelect clickable" >
+                <div className="wrapper carTypeSelect  clickable" onClick={changeCarType} >
                   <img src={Camper} alt="" />
                   <p>Автобудинки</p>
                 </div>
@@ -232,9 +240,12 @@ export default function Main(props) {
         <div className="leftSide">
           <p>Продайте свій автомобіль у 3 простих кроки!</p>
           <p>Введіть трохи деталей, розмістіть оголошення у нас, знайдіть ідеального покупця</p>
-          <div className="sellButton">
+          <Link to={'/SellVehicle'} onClick={ScrollToTop}>
+          <div className="sellButton blueBGButton clickable">
             Продати автомобіль
           </div>
+          </Link>
+          
         </div>
         <div className="rightSide">
           <img src={OrangeCarImage} alt="" />
@@ -282,9 +293,12 @@ export default function Main(props) {
           <div><p>Найновіші з пропозицій</p></div>
           <CardSlider />
         </div>
-        <div className="button">
+        <Link to={'/Search'} onClick={ScrollToTop}>
+        <div className="button orangeBGButton clickable">
           <span>Більше пропозицій </span><img src={ArrowDownRight} alt="" />
         </div>
+        </Link>
+        
       </div>
       <div className="favoriteBrands">
         <div className="wrapper">
@@ -362,13 +376,12 @@ export default function Main(props) {
       </div>
       <div className="backToStart">
 
-        <div className="button "><a  href="#hook">
+        <div className="button clickable" onClick={ScrollToTop}>
           <div>
           <img src={ArrowUpOrange} alt="" />
           <span>На початок</span>
           </div>
           
-        </a>
         </div>
       </div>
 

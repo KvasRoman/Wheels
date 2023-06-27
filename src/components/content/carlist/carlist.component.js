@@ -99,9 +99,8 @@ function isEmpty(v) {
 }
 
 export default function CarList() {
-    const [spareWheel, setSpareWheel] = useState();
-    const [conditioners, setConditioners] = useState();
-
+    const [spareWheel, setSpareWheel] = useState([]);
+    const [conditioners, setConditioners] = useState([]);
     useEffect(
         () => { selectService.getAirConditioners().then(v => setConditioners(v.map(Adapt))); },
         []);
@@ -110,50 +109,42 @@ export default function CarList() {
         () => { selectService.getSpareWheels().then(v => setSpareWheel(v.map(Adapt))); },
         []);
 
-    const [fuelTypes, setFuel] = useState();
-
+    const [fuelTypes, setFuel] = useState([]);
     useEffect(
         () => { selectService.getFuelTypes().then(v => setFuel(v.map(Adapt))); },
         []);
 
-    const [bodyTypes, setBodyType] = useState();
-
+    const [bodyTypes, setBodyType] = useState([]);
     useEffect(
         () => { selectService.getBodyTypes().then(v => setBodyType(v.map(Adapt))); },
         []);
 
 
-    const [brandTypes, setBrandType] = useState();
-
+    const [brandTypes, setBrandType] = useState([]);
     useEffect(
         () => { selectService.getBrands().then(v => setBrandType(v.map(Adapt))); },
         []);
 
-    const [modelTypes, setModelType] = useState();
-
+    const [modelTypes, setModelType] = useState([]);
     useEffect(
         () => { selectService.getCarModels().then(v => setModelType(v.map(Adapt))); },
         []);
 
-    const [transmissionTypes, setTransmissionType] = useState();
-
+    const [transmissionTypes, setTransmissionType] = useState([]);
     useEffect(
         () => { selectService.getTransmissionTypes().then(v => setTransmissionType(v.map(Adapt))); },
         []);
-    const [wheelDriveTypes, setWheelDriveType] = useState();
-
+    const [wheelDriveTypes, setWheelDriveType] = useState([]);
     useEffect(
         () => { selectService.getDriveTypes().then(v => setWheelDriveType(v.map(Adapt))); },
         []);
 
-    const [regions, setRegion] = useState();
-
+    const [regions, setRegion] = useState([]);
     useEffect(
         () => { selectService.getStates().then(v => setRegion(v.map(Adapt))); },
         []);
 
-    const [cities, setCity] = useState();
-
+    const [cities, setCity] = useState([]);
     useEffect(
         () => {
             selectService.getCities().then(v => {
@@ -162,84 +153,81 @@ export default function CarList() {
         },
         []);
 
-    const [colors, setСolor] = useState();
-
+    const [colors, setСolor] = useState([]);
     useEffect(
         () => { selectService.getColors().then(v => setСolor(v.map(Adapt))); },
         []);
-    const [coutnries, setCoutnry] = useState();
+    const [coutnries, setCoutnry] = useState([]);
 
     useEffect(
         () => { selectService.getCountries().then(v => setCoutnry(v.map(Adapt))); },
         []);
 
 
-    const [techStates, setTechState] = useState();
+    const [techStates, setTechState] = useState([]);
 
     useEffect(
         () => { selectService.getTechnicalStates().then(v => setTechState(v.map(Adapt))); },
         []);
-    const [lightTypes, setLightType] = useState();
+    const [lightTypes, setLightType] = useState([]);
 
     useEffect(
         () => { selectService.getHeadlights().then(v => setLightType(v.map(Adapt))); },
         []);
 
-    const [salonMaterials, setSalonMaterials] = useState();
+    const [salonMaterials, setSalonMaterials] = useState([]);
 
     useEffect(
         () => { selectService.getInteriorMaterials().then(v => setSalonMaterials(v.map(Adapt))); },
         []);
-    const [windowLifters, setWindowLifters] = useState();
+    const [windowLifters, setWindowLifters] = useState([]);
 
     useEffect(
         () => { selectService.getElectricWindows().then(v => setWindowLifters(v.map(Adapt))); },
         []);
 
-    const [steeringAdjustment, setSteeringAdjustment] = useState();
+    const [steeringAdjustment, setSteeringAdjustment] = useState([]);
 
     useEffect(
         () => { selectService.getSteeringWheelAdjustments().then(v => setSteeringAdjustment(v.map(Adapt))); },
         []);
-    const [seatAdjustments, setSeatAdjustments] = useState();
+    const [seatAdjustments, setSeatAdjustments] = useState([]);
 
     useEffect(
         () => { selectService.getSeatAdjustments().then(v => setSeatAdjustments(v.map(Adapt))); },
         []);
 
-    const [seatsHeated, setSeatsHeated] = useState();
+    const [seatsHeated, setSeatsHeated] = useState([]);
 
     useEffect(
         () => { selectService.getSeatHeatings().then(v => setSeatsHeated(v.map(Adapt))); },
         []);
 
-    const [seatVentilation, setSeatVentilation] = useState();
+    const [seatVentilation, setSeatVentilation] = useState([]);
 
     useEffect(
         () => { selectService.getSeatVentilations().then(v => setSeatVentilation(v.map(Adapt))); },
         []);
-    const [varnishCoatings, setVarnishCoating] = useState();
+    const [varnishCoatings, setVarnishCoating] = useState([]);
 
     useEffect(
         () => { selectService.getPaintCoatings().then(v => setVarnishCoating(v.map(Adapt))); },
         []);
-    const [salonColors, setSalonColor] = useState();
+    const [salonColors, setSalonColor] = useState([]);
 
     useEffect(
         () => { selectService.getColors().then(v => setSalonColor(v.map(Adapt))); },
         []);
-    const [powerSteeringAmplifies, setPowerSteeringAmplify] = useState();
+    const [powerSteeringAmplifies, setPowerSteeringAmplify] = useState([]);
 
     useEffect(
         () => { selectService.getPowerSteerings().then(v => setPowerSteeringAmplify(v.map(Adapt))); },
         []);
-    const [vehicleTypes, setVehicleType] = useState();
+    const [vehicleTypes, setVehicleType] = useState([]);
 
     useEffect(
         () => { selectService.getVehicleTypes().then(v => setVehicleType(v.map(Adapt))); },
         []);
-
-
 
     carService.getCars().then(v => console.log(`hello ${v}`))
     selectService.getAirConditioners().then(v => console.log(v))
@@ -343,25 +331,25 @@ export default function CarList() {
                 <div className="wrapper">
                     <div className="row navigation"><span>Домашня сторінка</span> / Вживані </div>
                     <div className="row types" id='vTypeList1'>
-                        <div className="button" onClick={changeActiveVType} value='lehkovy'>Легкові</div>
-                        <div className="button" onClick={changeActiveVType} value='moto'>Мото</div>
-                        <div className="button" onClick={changeActiveVType} value='vantazhny'>Вантажівки</div>
-                        <div className="button" onClick={changeActiveVType} value='spetz'>Спецтехніка</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='lehkovy'>Легкові</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='moto'>Мото</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='vantazhny'>Вантажівки</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='spetz'>Спецтехніка</div>
                     </div>
                     <div className="row types" id='vTypeList2'>
-                        <div className="button" onClick={changeActiveVType} value='silhos'>Сільгосптехніка</div>
-                        <div className="button" onClick={changeActiveVType} value='avtobus'>Автобуси</div>
-                        <div className="button" onClick={changeActiveVType} value='prychepy'>Причепи</div>
-                        <div className="button" onClick={changeActiveVType} value='avtobudynky'>Автобудинки</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='silhos'>Сільгосптехніка</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='avtobus'>Автобуси</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='prychepy'>Причепи</div>
+                        <div className="button blueTransparentButton clickable" onClick={changeActiveVType} value='avtobudynky'>Автобудинки</div>
                     </div>
                 </div>
                 <div className="row filtersAndResults">
                     <div className="filters">
                         <p className='title'>Фільтри</p>
                         <div className="carWear" id='carWear'>
-                            <div className="button" onClick={changeActiveCarWear} value='any'>Всі</div>
-                            <div className="button" onClick={changeActiveCarWear} value='old'>Вживані</div>
-                            <div className="button" onClick={changeActiveCarWear} value='new'>Нові</div>
+                            <div className="button blueTransparentButton clickable" onClick={changeActiveCarWear} value='any'>Всі</div>
+                            <div className="button blueTransparentButton clickable" onClick={changeActiveCarWear} value='old'>Вживані</div>
+                            <div className="button blueTransparentButton clickable" onClick={changeActiveCarWear} value='new'>Нові</div>
                         </div>
                         <div className="region dropdown">
                             <p>Регіон</p>
